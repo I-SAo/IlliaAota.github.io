@@ -6,87 +6,137 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body {
-      margin: 20px;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      background: #fff;
-      color: #000;
-    }
+    * {
+  box-sizing: border-box;
+}
 
-    .container {
-      max-width: 760px;
-    }
+body {
+  margin: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  background: #fff;
+  color: #000;
+}
 
-    h1 {
-      font-size: 24px;
-      border-bottom: 1px solid #000;
-      margin-bottom: 10px;
-    }
+.container {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+}
 
-    h2 {
-      font-size: 18px;
-      margin-top: 28px;
-      border-bottom: 1px solid #999;
-    }
+h1 {
+  font-size: 24px;
+  border-bottom: 1px solid #000;
+  margin-bottom: 10px;
+}
 
-    a {
-      color: #0000ee;
-      text-decoration: underline;
-    }
+h2 {
+  font-size: 18px;
+  margin-top: 28px;
+  border-bottom: 1px solid #999;
+}
 
-    .profile {
-      display: flex;
-      gap: 20px;
-      align-items: flex-start;
-    }
+a {
+  color: #0000ee;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
 
-    .profile img {
-      width: 250px;
-      height: auto;
-      border: 1px solid #999;
-    }
-    .profile-text {
-        font-size: 16px;
-        margin-left: 30px;
-      }
+.profile {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
 
-    ul {
-      padding-left: 22px;
-    }
+.profile img {
+  width: 250px;
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #999;
+}
 
-    .small {
-      font-size: 13px;
-      color: #555;
-    }
+.profile-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 16px;
+  margin-left: 30px;
+}
 
-    .lang {
-      text-align: right;
-      font-size: 13px;
-    }
-    .research {
-      display: flex;
-      gap: 30px;
-      align-items: flex-start;
-    }
+ul {
+  padding-left: 22px;
+}
 
-    .research-text {
-      flex: 1;
-    }
+.small {
+  font-size: 13px;
+  color: #555;
+}
 
-    .research-images {
-      width: 300px;
-      display: flex;
-      gap: 10px;   
-    }
+.lang {
+  text-align: right;
+  font-size: 13px;
+}
 
-    .research-images img {
-      width: 50%;
-      height: auto;
-      border: 1px solid #999;
-    }
+.research {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+}
 
+.research-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.research-images {
+  width: 300px;
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.research-images img {
+  width: calc(50% - 5px);
+  min-width: 0;
+  height: auto;
+  border: 1px solid #999;
+}
+
+@media (max-width: 700px) {
+  body {
+    margin: 12px;
+  }
+
+  .profile {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .profile img {
+    width: min(250px, 100%);
+    margin: 0 auto;
+  }
+
+  .profile-text {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .research {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .research-images {
+    width: 100%;
+    gap: 8px;
+  }
+
+  .research-images img {
+    width: calc(50% - 4px);
+  }
+}
   </style>
 </head>
 
@@ -102,10 +152,11 @@
 
     <div class="profile-text">
       <p>
-        <b>Postdoctoral Researcher<br>
+        <b>Postdoctoral Researcher</b><br>
         Developmental Neuroscience Project<br>
         Department of Basic Medical Sciences<br>
         Tokyo Metropolitan Institute of Medical Science
+　　　　　
       </p>
 
       <p>
@@ -135,7 +186,7 @@
     <li>Apr 2026 ~: Postdoctoral Researcher. Tokyo Metropolitan Institute of Medical Science, Japan </li>
     <li>Apr 2026 ~: Postdoctoral (PD) Research Fellowships of Japan Society for the Promotion of Science (JSPS) </li>
     <li>Feb 2026: Ph.D. in Psychology, Keio University</li>
-    <li>Apr 2020 - Mar 2023: PhD Student. Keio University, Japan
+    <li>Apr 2020 - Mar 2023: PhD Student. Keio University, Japan</li>
 
   </ul>
 
