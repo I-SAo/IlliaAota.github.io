@@ -6,20 +6,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 20px;
       font-family: "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
       font-size: 15px;
       line-height: 1.6;
-      background: #fff;
       color: #000;
+
+      background-color: #fff;
       background-image: url("aota-bg.png");
       background-repeat: repeat;
       background-size: 360px auto;
     }
 
     .container {
+      width: 100%;
       max-width: 760px;
+      margin: 0 auto;
     }
 
     h1 {
@@ -37,6 +44,8 @@
     a {
       color: #0000ee;
       text-decoration: underline;
+      overflow-wrap: anywhere;
+      word-break: break-word;
     }
 
     ul {
@@ -66,93 +75,111 @@
 
     .profile-left {
       width: 260px;
+      flex-shrink: 0;
       text-align: left;
     }
 
     .profile-left img {
-      width: 180px;
-      height: auto;
-      border: 1px solid #999;
       display: block;
+      width: 180px;
+      max-width: 100%;
+      height: auto;
       margin: 0 auto 12px auto;
+      border: 1px solid #999;
+    }
+
+    .profile-text {
+      width: 180px;
+      margin: 0 auto;
+      font-size: 14px;
     }
 
     .profile-right {
       flex: 1;
+      min-width: 0;
     }
 
     .profile-right h2:first-child {
       margin-top: 0;
     }
 
-    .notice {
-      font-size: 14px;
-    }
-
     .footer-banners {
-      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 4px;
       margin-top: 30px;
       margin-bottom: 20px;
-      font-size: 0;
     }
 
     .footer-banners a {
-      display: inline-block;
-      margin: 0 2px;
+      display: block;
+      width: 25%;
+      max-width: 320px;
     }
 
     .footer-banners img {
-      max-width: 320px;
-      width: 25%;
+      display: block;
+      width: 100%;
       height: auto;
       border: 1px solid #999;
-      vertical-align: middle;
     }
-    .profile-text {
-        font-size: 14px;
-        margin-left: 30px;
+
+    @media (max-width: 700px) {
+      body {
+        margin: 12px;
+        background-size: 280px auto;
       }
 
-    @media (max-width: 600px) {
       .top-area {
-        display: block;
+        flex-direction: column;
+        gap: 10px;
       }
 
       .profile-left {
-        width: auto;
+        width: 100%;
       }
 
       .profile-right {
-        margin-top: 20px;
+        width: 100%;
+        margin-top: 10px;
       }
 
-      .footer-banners img {
-        width: 40%;
+      .profile-right h2:first-child {
+        margin-top: 0;
       }
 
+      .footer-banners {
+        gap: 4px;
+      }
+
+      .footer-banners a {
+        width: calc(50% - 2px);
+      }
     }
-
   </style>
 </head>
 
 <body>
 <div class="container">
 
-  <p class="lang"><a href="index.html">English</a></p>
+  <p class="lang">
+    <a href="index.html">English</a>
+  </p>
 
   <h1 class="site-title">青田伊莉安</h1>
 
   <div class="top-area">
 
     <div class="profile-left">
-      <img src="profile.jpg" alt="プロフィール写真">
+      <img src="profile.jpg" alt="青田伊莉安のプロフィール写真">
 
       <div class="profile-text">
         <p>
-          <b>青田伊莉安 (あおたいりあ)</b><br>
-          博士研究員<br> 
-          東京都医学総合研究所<br> 
-          先端基礎医科学研究分野<br> 
+          <b>青田伊莉安（あおた いりあ）</b><br>
+          博士研究員<br>
+          東京都医学総合研究所<br>
+          先端基礎医科学研究分野<br>
           脳神経回路形成プロジェクト
         </p>
 
@@ -163,7 +190,8 @@
     </div>
 
     <div class="profile-right">
-      <h2> ★★★ 最新情報 ★★★ </h2>
+      <h2>★★★ 最新情報 ★★★</h2>
+
       <ul>
         <li>2026年7月　人生で初めて辛ラーメンを食べました。</li>
         <li>2026年6月　引っ越しました。</li>
@@ -173,11 +201,13 @@
   </div>
 
   <h2>研究テーマ</h2>
+
   <p>
     これまでハシブトガラスの群れを用いて社会行動を研究してきました。現在は脊椎動物の脳の進化と発生を、非鳥類型爬虫類を対象に研究しています。
   </p>
 
   <h2>経歴</h2>
+
   <ul>
     <li>2026年4月〜　東京都医学総合研究所 外部支援研究員</li>
     <li>2026年4月〜　日本学術振興会 特別研究員（PD）</li>
@@ -185,57 +215,107 @@
   </ul>
 
   <h2>研究業績</h2>
+
   <ul>
     <li>
-      Kumamoto, T., Hara, Y., Katayama, R., Aota, I., Achiwa, H., Noguchi, Y., ... &amp; Ohtaka-Maruyama, C. (2026).
-      Dual Developmental Origins and Activity-dependent Specification of Mammalian Subplate Neurons.
+      Kumamoto, T., Hara, Y., Katayama, R., Aota, I., Achiwa, H.,
+      Noguchi, Y., ... &amp; Ohtaka-Maruyama, C. (2026).
+      Dual Developmental Origins and Activity-dependent Specification
+      of Mammalian Subplate Neurons.
       <i>bioRxiv</i>, 2026-06.
-      <a href="https://doi.org/10.64898/2026.06.12.731985">https://doi.org/10.64898/2026.06.12.731985</a>
+      <a href="https://doi.org/10.64898/2026.06.12.731985">
+        https://doi.org/10.64898/2026.06.12.731985
+      </a>
     </li>
 
     <li>
-      Wada, K., Katayama, R., Aota, I., Hanashima, C., Kumamoto, T., &amp; Ohtaka-Maruyama, C. (2025).
-      Lineage Analysis of Pallial Subdivision-Derived Cells in the Developing Chick Pallium.
-      <i>Development, Growth &amp; Differentiation</i>, 67(9), 466-478.
-      <a href="https://doi.org/10.1111/dgd.70029">https://doi.org/10.1111/dgd.70029</a>
+      Wada, K., Katayama, R., Aota, I., Hanashima, C., Kumamoto, T.,
+      &amp; Ohtaka-Maruyama, C. (2025).
+      Lineage Analysis of Pallial Subdivision-Derived Cells in the
+      Developing Chick Pallium.
+      <i>Development, Growth &amp; Differentiation</i>,
+      67(9), 466–478.
+      <a href="https://doi.org/10.1111/dgd.70029">
+        https://doi.org/10.1111/dgd.70029
+      </a>
     </li>
 
     <li>
-      Tsurugizawa, T., Komaki, Y., Aota, I., Suematsu, M., Ohtaka-Maruyama, C., &amp; Kumamoto, T. (2025).
-      A cross-species brain magnetic resonance imaging and histology database of vertebrates.
+      Tsurugizawa, T., Komaki, Y., Aota, I., Suematsu, M.,
+      Ohtaka-Maruyama, C., &amp; Kumamoto, T. (2025).
+      A cross-species brain magnetic resonance imaging and histology
+      database of vertebrates.
       <i>Scientific Data</i>, 12(1), 1206.
-      <a href="https://doi.org/10.1038/s41597-025-05540-5">https://doi.org/10.1038/s41597-025-05540-5</a>
+      <a href="https://doi.org/10.1038/s41597-025-05540-5">
+        https://doi.org/10.1038/s41597-025-05540-5
+      </a>
     </li>
 
     <li>
       Aota, I., Takano, M., &amp; Izawa, E. I. (2025).
-      Effects of a short-term removal of the dominant male on vocalization in captive groups of large-billed crows (<i>Corvus macrorhynchos</i>).
+      Effects of a short-term removal of the dominant male on
+      vocalization in captive groups of large-billed crows
+      (<i>Corvus macrorhynchos</i>).
       <i>Royal Society Open Science</i>, 12(4), 241458.
-      <a href="https://doi.org/10.1098/rsos.241458">https://doi.org/10.1098/rsos.241458</a>
+      <a href="https://doi.org/10.1098/rsos.241458">
+        https://doi.org/10.1098/rsos.241458
+      </a>
     </li>
 
     <li>
       Aota, I., Yatsuda, C., &amp; Izawa, E. I. (2023).
-      Salivary corticosterone measurement in large-billed crows by enzyme-linked immunosorbent assay.
-      <i>Journal of Veterinary Medical Science</i>, 85(1), 71-75.
-      <a href="https://doi.org/10.1292/jvms.22-0383">https://doi.org/10.1292/jvms.22-0383</a>
+      Salivary corticosterone measurement in large-billed crows
+      by enzyme-linked immunosorbent assay.
+      <i>Journal of Veterinary Medical Science</i>, 85(1), 71–75.
+      <a href="https://doi.org/10.1292/jvms.22-0383">
+        https://doi.org/10.1292/jvms.22-0383
+      </a>
     </li>
   </ul>
 
   <h2>リンク</h2>
+
   <ul>
-    <li><a href="https://orcid.org/0009-0001-5377-7687">ORCID</a></li>
-    <li><a href="https://researchmap.jp/IlliaAota">researchmap</a></li>
-    <li><a href="https://www.researchgate.net/profile/Illia-Aota">ResearchGate</a></li>
+    <li>
+      <a href="https://orcid.org/0009-0001-5377-7687">
+        ORCID
+      </a>
+    </li>
+
+    <li>
+      <a href="https://researchmap.jp/IlliaAota">
+        researchmap
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.researchgate.net/profile/Illia-Aota">
+        ResearchGate
+      </a>
+    </li>
   </ul>
 
   <div class="footer-banners">
-    <a href="https://takumakumamoto.wixsite.com/mysite" target="_blank" rel="noopener noreferrer">
-      <img src="kumamoto.png" alt="Developmental Neuroscience Project">
+    <a
+      href="https://takumakumamoto.wixsite.com/mysite"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src="kumamoto.png"
+        alt="Developmental Neuroscience Project"
+      >
     </a>
 
-    <a href="https://www.igakuken.or.jp/regeneration/index.html" target="_blank" rel="noopener noreferrer">
-      <img src="nousinkei.png" alt="脳神経回路形成プロジェクト">
+    <a
+      href="https://www.igakuken.or.jp/regeneration/index.html"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        src="nousinkei.png"
+        alt="脳神経回路形成プロジェクト"
+      >
     </a>
   </div>
 

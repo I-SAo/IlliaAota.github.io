@@ -7,143 +7,142 @@
 
   <style>
     * {
-  box-sizing: border-box;
-}
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 20px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 15px;
-  line-height: 1.6;
-  background: #fff;
-  color: #000;
-}
+    body {
+      margin: 20px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      background: #fff;
+      color: #000;
+    }
 
-.container {
-  width: 100%;
-  max-width: 760px;
-  margin: 0 auto;
-}
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+    }
 
-h1 {
-  font-size: 24px;
-  border-bottom: 1px solid #000;
-  margin-bottom: 10px;
-}
+    h1 {
+      font-size: 24px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 10px;
+    }
 
-h2 {
-  font-size: 18px;
-  margin-top: 28px;
-  border-bottom: 1px solid #999;
-}
+    h2 {
+      font-size: 18px;
+      margin-top: 28px;
+      border-bottom: 1px solid #999;
+    }
 
-a {
-  color: #0000ee;
-  text-decoration: underline;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
+    a {
+      color: #0000ee;
+      text-decoration: underline;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
 
-.profile {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
+    ul {
+      padding-left: 22px;
+    }
 
-.profile img {
-  width: 250px;
-  max-width: 100%;
-  height: auto;
-  border: 1px solid #999;
-}
+    .profile {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
 
-.profile-text {
-  flex: 1;
-  min-width: 0;
-  font-size: 16px;
-  margin-left: 30px;
-}
+    .profile img {
+      width: 250px;
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #999;
+    }
 
-ul {
-  padding-left: 22px;
-}
+    .profile-text {
+      flex: 1;
+      min-width: 0;
+      margin-left: 30px;
+      font-size: 16px;
+    }
 
-.small {
-  font-size: 13px;
-  color: #555;
-}
+    .lang {
+      text-align: right;
+      font-size: 13px;
+    }
 
-.lang {
-  text-align: right;
-  font-size: 13px;
-}
+    .research {
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
 
-.research {
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
-}
+    .research-text {
+      flex: 1;
+      min-width: 0;
+    }
 
-.research-text {
-  flex: 1;
-  min-width: 0;
-}
+    .research-images {
+      width: 300px;
+      flex-shrink: 0;
+    }
 
-.research-images {
-  width: 300px;
-  display: flex;
-  gap: 10px;
-  flex-shrink: 0;
-}
+    .research-images img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid #999;
+    }
 
-.research-images img {
-  width: calc(50% - 5px);
-  min-width: 0;
-  height: auto;
-  border: 1px solid #999;
-}
+    .small {
+      font-size: 13px;
+      color: #555;
+    }
 
-@media (max-width: 700px) {
-  body {
-    margin: 12px;
-  }
+    @media (max-width: 700px) {
+      body {
+        margin: 12px;
+      }
 
-  .profile {
-    flex-direction: column;
-    gap: 10px;
-  }
+      .profile {
+        flex-direction: column;
+        gap: 10px;
+      }
 
-  .profile img {
-    width: min(250px, 100%);
-    margin: 0 auto;
-  }
+      .profile img {
+        width: min(250px, 100%);
+        margin: 0 auto;
+      }
 
-  .profile-text {
-    margin-left: 0;
-    width: 100%;
-  }
+      .profile-text {
+        width: 100%;
+        margin-left: 0;
+      }
 
-  .research {
-    flex-direction: column;
-    gap: 10px;
-  }
+      .research {
+        flex-direction: column;
+        gap: 10px;
+      }
 
-  .research-images {
-    width: 100%;
-    gap: 8px;
-  }
+      .research-images {
+        width: 100%;
+      }
 
-  .research-images img {
-    width: calc(50% - 4px);
-  }
-}
+      .research-images img {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 
 <body>
 <div class="container">
 
-  <p class="lang"><a href="ja.html">日本語</a></p>
+  <p class="lang">
+    <a href="ja.html">日本語</a>
+  </p>
 
   <h1>Illia Aota</h1>
 
@@ -156,7 +155,6 @@ ul {
         Developmental Neuroscience Project<br>
         Department of Basic Medical Sciences<br>
         Tokyo Metropolitan Institute of Medical Science
-　　　　　
       </p>
 
       <p>
@@ -166,73 +164,125 @@ ul {
   </div>
 
   <h2>Research</h2>
+
   <div class="research">
+    <div class="research-text">
+      <p>
+        My earlier work examined social behaviour in large-billed crows.
+        I now study the evolution and development of the vertebrate brain
+        — in particular how the pallium is built and how it has diverged
+        across amniotes — working primarily in birds and non-avian reptiles.
+      </p>
+    </div>
 
-  <div class="research-text">
-    <p>
-    My earlier work examined social behaviour in large-billed crows. I now study the evolution and development of the vertebrate brain — in particular how the pallium is built and how it has diverged across amniotes — working primarily in birds and non-avian reptiles.
-  </p>
+    <div class="research-images">
+      <img
+        src="crow_aggregate.jpg"
+        alt="A group of large-billed crows"
+      >
+    </div>
   </div>
-
-  <div class="research-images">
-    <img src="crow_aggregate.jpg">
-    <img src="crow20210322_pr.jpg">
-  </div>
-
-</div>
 
   <h2>CV</h2>
-  <ul>
-    <li>Apr 2026 ~: Postdoctoral Researcher. Tokyo Metropolitan Institute of Medical Science, Japan </li>
-    <li>Apr 2026 ~: Postdoctoral (PD) Research Fellowships of Japan Society for the Promotion of Science (JSPS) </li>
-    <li>Feb 2026: Ph.D. in Psychology, Keio University</li>
-    <li>Apr 2020 - Mar 2023: PhD Student. Keio University, Japan</li>
 
+  <ul>
+    <li>
+      Apr 2026–present: Postdoctoral Researcher,
+      Tokyo Metropolitan Institute of Medical Science, Japan
+    </li>
+
+    <li>
+      Apr 2026–present: JSPS Postdoctoral Research Fellow
+    </li>
+
+    <li>
+      Feb 2026: Ph.D. in Psychology, Keio University
+    </li>
+
+    <li>
+      Apr 2020–Mar 2023: PhD Student, Keio University, Japan
+    </li>
   </ul>
 
   <h2>Publications</h2>
+
   <ul>
     <li>
-      Kumamoto, T., Hara, Y., Katayama, R., Aota, I., Achiwa, H., Noguchi, Y., ... &amp; Ohtaka-Maruyama, C. (2026).
-      Dual Developmental Origins and Activity-dependent Specification of Mammalian Subplate Neurons.
+      Kumamoto, T., Hara, Y., Katayama, R., Aota, I., Achiwa, H.,
+      Noguchi, Y., ... &amp; Ohtaka-Maruyama, C. (2026).
+      Dual Developmental Origins and Activity-dependent Specification
+      of Mammalian Subplate Neurons.
       <i>bioRxiv</i>, 2026-06.
-      <a href="https://doi.org/10.64898/2026.06.12.731985">https://doi.org/10.64898/2026.06.12.731985</a>
+      <a href="https://doi.org/10.64898/2026.06.12.731985">
+        https://doi.org/10.64898/2026.06.12.731985
+      </a>
     </li>
 
     <li>
-      Wada, K., Katayama, R., Aota, I., Hanashima, C., Kumamoto, T., &amp; Ohtaka-Maruyama, C. (2025).
-      Lineage Analysis of Pallial Subdivision-Derived Cells in the Developing Chick Pallium.
-      <i>Development, Growth &amp; Differentiation</i>, 67(9), 466-478.
-      <a href="https://doi.org/10.1111/dgd.70029">https://doi.org/10.1111/dgd.70029</a>
+      Wada, K., Katayama, R., Aota, I., Hanashima, C., Kumamoto, T.,
+      &amp; Ohtaka-Maruyama, C. (2025).
+      Lineage Analysis of Pallial Subdivision-Derived Cells in the
+      Developing Chick Pallium.
+      <i>Development, Growth &amp; Differentiation</i>,
+      67(9), 466–478.
+      <a href="https://doi.org/10.1111/dgd.70029">
+        https://doi.org/10.1111/dgd.70029
+      </a>
     </li>
 
     <li>
-      Tsurugizawa, T., Komaki, Y., Aota, I., Suematsu, M., Ohtaka-Maruyama, C., &amp; Kumamoto, T. (2025).
-      A cross-species brain magnetic resonance imaging and histology database of vertebrates.
+      Tsurugizawa, T., Komaki, Y., Aota, I., Suematsu, M.,
+      Ohtaka-Maruyama, C., &amp; Kumamoto, T. (2025).
+      A cross-species brain magnetic resonance imaging and histology
+      database of vertebrates.
       <i>Scientific Data</i>, 12(1), 1206.
-      <a href="https://doi.org/10.1038/s41597-025-05540-5">https://doi.org/10.1038/s41597-025-05540-5</a>
+      <a href="https://doi.org/10.1038/s41597-025-05540-5">
+        https://doi.org/10.1038/s41597-025-05540-5
+      </a>
     </li>
 
     <li>
       Aota, I., Takano, M., &amp; Izawa, E. I. (2025).
-      Effects of a short-term removal of the dominant male on vocalization in captive groups of large-billed crows (<i>Corvus macrorhynchos</i>).
+      Effects of a short-term removal of the dominant male on
+      vocalization in captive groups of large-billed crows
+      (<i>Corvus macrorhynchos</i>).
       <i>Royal Society Open Science</i>, 12(4), 241458.
-      <a href="https://doi.org/10.1098/rsos.241458">https://doi.org/10.1098/rsos.241458</a>
+      <a href="https://doi.org/10.1098/rsos.241458">
+        https://doi.org/10.1098/rsos.241458
+      </a>
     </li>
 
     <li>
       Aota, I., Yatsuda, C., &amp; Izawa, E. I. (2023).
-      Salivary corticosterone measurement in large-billed crows by enzyme-linked immunosorbent assay.
-      <i>Journal of Veterinary Medical Science</i>, 85(1), 71-75.
-      <a href="https://doi.org/10.1292/jvms.22-0383">https://doi.org/10.1292/jvms.22-0383</a>
+      Salivary corticosterone measurement in large-billed crows
+      by enzyme-linked immunosorbent assay.
+      <i>Journal of Veterinary Medical Science</i>, 85(1), 71–75.
+      <a href="https://doi.org/10.1292/jvms.22-0383">
+        https://doi.org/10.1292/jvms.22-0383
+      </a>
     </li>
   </ul>
 
   <h2>Links</h2>
+
   <ul>
-    <li><a href="https://orcid.org/0009-0001-5377-7687">ORCID</a></li>
-    <li><a href="https://researchmap.jp/IlliaAota">researchmap</a></li>
-    <li><a href="https://www.researchgate.net/profile/Illia-Aota">ResearchGate</a></li>
+    <li>
+      <a href="https://orcid.org/0009-0001-5377-7687">
+        ORCID
+      </a>
+    </li>
+
+    <li>
+      <a href="https://researchmap.jp/IlliaAota">
+        researchmap
+      </a>
+    </li>
+
+    <li>
+      <a href="https://www.researchgate.net/profile/Illia-Aota">
+        ResearchGate
+      </a>
+    </li>
   </ul>
 
   <hr>
