@@ -54,7 +54,7 @@
       align-items: flex-start;
     }
 
-    .profile img {
+    .profile > img {
       width: 250px;
       max-width: 100%;
       height: auto;
@@ -103,15 +103,18 @@
 
     .profile-links {
       display: flex;
+      width: 200px;
+      max-width: 100%;
       align-items: center;
-      gap: 12px;
-      margin: 16px 0 8px;
+      justify-content: space-between;
+      gap: 0;
+      margin: 8px 0 0;
     }
 
     .profile-links a {
       display: inline-flex;
-      width: 34px;
-      height: 34px;
+      width: 32px;
+      height: 32px;
       align-items: center;
       justify-content: center;
       text-decoration: none;
@@ -119,8 +122,8 @@
 
     .profile-links img {
       display: block;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       object-fit: contain;
     }
 
@@ -139,7 +142,7 @@
         gap: 10px;
       }
 
-      .profile img {
+      .profile > img {
         width: min(250px, 100%);
         margin: 0 auto;
       }
@@ -188,23 +191,24 @@
       <p>
         E-mail: illia.s.aota[at]gmail.com
       </p>
+
+      <nav class="profile-links" aria-label="Profile links">
+        <a href="https://orcid.org/0009-0001-5377-7687" target="_blank" rel="noopener noreferrer" aria-label="ORCID" title="ORCID">
+          <img src="orcid_128x128.png" alt="">
+        </a>
+        <a href="https://researchmap.jp/IlliaAota" target="_blank" rel="noopener noreferrer" aria-label="researchmap" title="researchmap">
+          <img src="icon-researchmap.svg" alt="">
+        </a>
+        <a href="https://www.researchgate.net/profile/Illia-Aota" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate" title="ResearchGate">
+          <img src="icon-researchgate.svg" alt="">
+        </a>
+        <a href="https://togodb.org/db/animal_brain_collection" target="_blank" rel="noopener noreferrer" aria-label="Animal Brain Collection" title="Animal Brain Collection">
+          <img src="icon-animal-brain.svg" alt="">
+        </a>
+      </nav>
     </div>
   </div>
 
-  <nav class="profile-links" aria-label="Profile links">
-    <a href="https://orcid.org/0009-0001-5377-7687" target="_blank" rel="noopener noreferrer" aria-label="ORCID" title="ORCID">
-      <img src="orcid_128x128.png" alt="">
-    </a>
-    <a href="https://researchmap.jp/IlliaAota" target="_blank" rel="noopener noreferrer" aria-label="researchmap" title="researchmap">
-      <img src="icon-researchmap.svg" alt="">
-    </a>
-    <a href="https://www.researchgate.net/profile/Illia-Aota" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate" title="ResearchGate">
-      <img src="icon-researchgate.svg" alt="">
-    </a>
-    <a href="https://togodb.org/db/animal_brain_collection" target="_blank" rel="noopener noreferrer" aria-label="Animal Brain Collection" title="Animal Brain Collection">
-      <img src="icon-animal-brain.svg" alt="">
-    </a>
-  </nav>
 
   <h2>Research</h2>
 
