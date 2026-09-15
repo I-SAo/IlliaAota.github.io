@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">researchmap</title>
+  <path d="M6 13l16-6 20 7 16-6v43l-16 6-20-7-16 6V13z" fill="#A6CE39"/>
+  <path d="M22 7v43M42 14v43" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".95"/>
+  <path d="M49 21c-5 0-9 4-9 9 0 7 9 16 9 16s9-9 9-16c0-5-4-9-9-9zm0 5a4 4 0 110 8 4 4 0 010-8z" fill="#fff" fill-rule="evenodd"/>
+</svg>

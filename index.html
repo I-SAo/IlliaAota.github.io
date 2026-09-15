@@ -101,6 +101,34 @@
       color: #555;
     }
 
+    .profile-links {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 16px 0 8px;
+    }
+
+    .profile-links a {
+      display: inline-flex;
+      width: 34px;
+      height: 34px;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .profile-links img {
+      display: block;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
+    }
+
+    .profile-links a:hover img,
+    .profile-links a:focus-visible img {
+      opacity: 0.72;
+    }
+
     @media (max-width: 700px) {
       body {
         margin: 12px;
@@ -162,6 +190,21 @@
       </p>
     </div>
   </div>
+
+  <nav class="profile-links" aria-label="Profile links">
+    <a href="https://orcid.org/0009-0001-5377-7687" target="_blank" rel="noopener noreferrer" aria-label="ORCID" title="ORCID">
+      <img src="orcid_128x128.png" alt="">
+    </a>
+    <a href="https://researchmap.jp/IlliaAota" target="_blank" rel="noopener noreferrer" aria-label="researchmap" title="researchmap">
+      <img src="icon-researchmap.svg" alt="">
+    </a>
+    <a href="https://www.researchgate.net/profile/Illia-Aota" target="_blank" rel="noopener noreferrer" aria-label="ResearchGate" title="ResearchGate">
+      <img src="icon-researchgate.svg" alt="">
+    </a>
+    <a href="https://togodb.org/db/animal_brain_collection" target="_blank" rel="noopener noreferrer" aria-label="Animal Brain Collection" title="Animal Brain Collection">
+      <img src="icon-animal-brain.svg" alt="">
+    </a>
+  </nav>
 
   <h2>Research</h2>
 
@@ -230,14 +273,6 @@
     </li>
 
     <li>
-      Yamamoto, M., Inoue, H., Hayashi, K., Aota, I., Matsumoto, J.,
-      Yamada, K., &amp; Toda, K. (2026).
-      Multidimensional characterization of the physiological and
-      behavioral effects of TCB-2 in mice.
-      <i>bioRxiv</i>.
-    </li>
-
-    <li>
       Wada, K., Katayama, R., Aota, I., Hanashima, C., Kumamoto, T.,
       &amp; Ohtaka-Maruyama, C. (2025).
       Lineage Analysis of Pallial Subdivision-Derived Cells in the
@@ -282,39 +317,14 @@
     </li>
   </ul>
 
-  <h2>Links</h2>
-
-  <ul>
-    <li>
-      <a href="https://orcid.org/0009-0001-5377-7687">
-        ORCID
-      </a>
-    </li>
-
-    <li>
-      <a href="https://researchmap.jp/IlliaAota">
-        researchmap
-      </a>
-    </li>
-
-    <li>
-      <a href="https://www.researchgate.net/profile/Illia-Aota">
-        ResearchGate
-      </a>
-    </li>
-
-    <li>
-      <a href="https://togodb.org/db/animal_brain_collection">
-        Animal Brain Collection
-      </a>
-    </li>
-
-  </ul>
-
   <hr>
 
   <p class="small">
-    Last updated: July 14, 2026
+    Last updated: September 15, 2026
+  </p>
+
+  <p class="small">
+    ORCID™, the ORCID logo, and iD logo are trademarks of ORCID, Inc. and used herein with permission.
   </p>
 
 </div>
