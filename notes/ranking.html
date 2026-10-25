@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>順位とレーティング / 青田伊莉安</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] }
+    };
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 20px;
+      font-family: "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #000;
+
+      background-color: #fff;
+      background-image: url("../aota-bg.png");
+      background-repeat: repeat;
+      background-size: 360px auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4px 20px 10px;
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    h1 {
+      font-size: 24px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 32px;
+      border-bottom: 1px solid #999;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-top: 22px;
+    }
+
+    a {
+      color: #0000ee;
+      text-decoration: underline;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+    }
+
+    mjx-container[display="true"] {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .nav {
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .note {
+      border: 1px dashed #999;
+      padding: 6px 12px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .refs li {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        margin: 0;
+        background-size: 280px auto;
+      }
+
+      .container {
+        padding: 4px 16px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <p class="nav">
+    <a href="../ja.html">トップ</a> ｜ <a href="index.html">雑記帳</a>
+  </p>
+
+  <h1>順位とレーティング</h1>
+
+  <p class="small">雑記帳。2026年10月</p>
+
+  <p>
+    動物の優劣順位の研究を始めると、最初に困るのが「で、どの指標を使えばいいの？」という問題である。
+    David's score、I&amp;SI、Elo-rating、h'、t<sub>tri</sub>……名前はたくさん出てくるのに、
+    それぞれが何を前提にして、何を答えてくれるのかを並べて書いたものはあまりない。もちろんwhiteheadのAnalyzing Animal Societies: Quantitative Methods for Vertebrate Social Analysis(2008)等の名著はあるが、最近のネットワーク分析まで含めると多分ない。
+    ここでは、自分が順位の研究をしていたときにおもったことをメモする。
+  </p>
+
+  <h2>1. 優劣とは何か</h2>
+
+  <p>
+    「優位」は個体の性質ではなく、<b>二者の関係</b>の性質である。
+    よく引かれる Drews (1993) の定義を要約すると、
+    同じ二者のあいだで攻撃的なやりとりが繰り返されたとき、勝ち負けが一貫して同じ側に偏り、
+    負ける側がエスカレートせずに既定の反応として譲るようになっている状態を、
+    その二者に優劣関係がある、と呼ぶ。
+    定義の歴史や、劣位の側の行動がなぜ大事かは、<a href="definition.html">優劣とは何か</a>に別に書いた。
+  </p>
+
+  <p>
+    この定義から大事な点が二つ出てくる。
+  </p>
+
+  <ul>
+    <li>優劣は<b>繰り返し</b>から推定するものなので、一回の勝ち負けでは決まらない。</li>
+    <li>個体ごとの「順位」は、二者関係を群れ全体で並べ直したときに初めて出てくる、<b>二次的な量</b>である。</li>
+  </ul>
+
+  <p>
+    つまり順位を出すというのは、二者関係の集まりを一本の数直線に押しつぶす作業である。
+    うまく押しつぶせるか（直線的か）をまず確かめ、それから押しつぶし方（指標）を選ぶ、という順番になる。
+  </p>
+
+  <h2>2. データの書き方</h2>
+
+  <p>
+    群れの個体数を \(N\) とし、個体 \(i\) が個体 \(j\) に勝った回数を \(x_{ij}\) と書く。
+    これを並べた \(N \times N\) の行列が<b>勝敗行列</b>（ソシオマトリクス）で、対角成分は 0。
+  </p>
+
+  \[
+    n_{ij} = x_{ij} + x_{ji}, \qquad
+    P_{ij} = \frac{x_{ij}}{n_{ij}} \quad (n_{ij} > 0)
+  \]
+
+  <p>
+    \(n_{ij}\) はそのペアのやりとりの総数、\(P_{ij}\) は \(i\) が \(j\) に勝った割合。
+    \(n_{ij} = 0\) のペアは「関係が未知」であって、勝ち負けのどちらでもない。ここは混同しやすい。
+  </p>
+
+  <h2>3. どれを使うかの地図</h2>
+
+  <p>
+    指標を選ぶ前に、次の二つを考える。
+  </p>
+
+  <ol>
+    <li>
+      <b>群れの構造を見たいのか、個体の位置を見たいのか。</b><br>
+      「この群れは直線的な順位をもつか」を知りたいなら直線性・推移性の指標（4節）。
+      「誰が何番目か」「個体の強さを他の変数と相関させたい」なら順位・スコアの指標（5節以降）。
+    </li>
+    <li>
+      <b>やりとりの時間順序の情報があるか。</b><br>
+      勝敗行列に集計してしまったデータなら David's score や I&amp;SI。
+      いつ誰と誰が戦ったかが一件ずつ残っているなら Elo-rating が使え、順位の時間変化まで追える。
+    </li>
+  </ol>
+
+  <p>
+    もう一つ、<b>観察の偏り</b>も効く。やりとりの回数がペアによって極端に違うと、
+    単純な勝率の合計は、よく戦うペアに引っ張られる。
+    David's score はこの点に配慮して作られた指標である。
+  </p>
+
+  <h2>4. 直線性と推移性</h2>
+
+  <h3>4.1 Landau の h と de Vries の h'</h3>
+
+  <p>
+    個体 \(i\) が優位に立っている相手の数を \(v_i\) とする。
+    完全に直線的な順位なら、\(v_i\) は \(0, 1, \dots, N-1\) を一つずつとる。
+    Landau の直線性指数 \(h\) は、\(v_i\) がその平均 \((N-1)/2\) からどれだけ散らばっているかを測る。
+  </p>
+
+  \[
+    h = \frac{12}{N^3 - N} \sum_{i=1}^{N} \left( v_i - \frac{N-1}{2} \right)^2
+  \]
+
+  <p>
+    \(h = 1\) で完全な直線、\(h = 0\) で全員が同じ数だけ勝っている状態。
+    係数 \(12/(N^3-N)\) は、完全直線のときに和がちょうど \((N^3-N)/12\) になることから来ている。
+  </p>
+
+  <p>
+    困るのは関係が未知のペアがあるときである。
+    de Vries (1995) は、未知のペアと引き分けのペアに 1/2 ずつ勝ちを振り分けて \(h\) を計算し直し、
+    さらに未知のペアにランダムに勝ち負けを割り当てたときの分布と比べる方法を提案した。
+    これが \(h'\) で、未知のペアの数を \(u\) とすると
+  </p>
+
+  \[
+    h' = h + \frac{6u}{N^3 - N}
+  \]
+
+  <p>
+    になる（ここでの \(h\) は、引き分けと未知のペアの両方に 1/2 ずつ勝ちを振り分けて計算したもの）。
+    第 2 項は、未知のペアをコインを投げて決めたときに \(v_i\) がばらつく分の期待値で、
+    未知のペアは「どちらに転ぶかわからない」ものとして平均的に扱われる。
+    直線性の有無は \(h'\) の値そのものより、このランダム化検定の \(p\) 値で判断する。
+    論文には \(h'\) と \(p\) 値の両方を書くのが普通。
+  </p>
+
+  <h3>4.2 三者関係の推移性 t<sub>tri</sub></h3>
+
+  <p>
+    \(h'\) は個体数が少ないと検出力が落ちるうえ、未知のペアが多いと値が大きく揺れる。
+    そこで Shizuka &amp; McDonald (2012) は、群れ全体ではなく<b>三者組</b>を単位にした。
+    三者がすべて互いに優劣関係をもつ組のうち、
+    「A が B に、B が C に、A が C に優位」のように筋が通っているものを推移的、
+    「A が B に、B が C に、C が A に優位」のように一周してしまうものを循環的と呼ぶ。
+  </p>
+
+  \[
+    P_t = \frac{T_{\text{trans}}}{T_{\text{trans}} + T_{\text{cycle}}}, \qquad
+    t_{\text{tri}} = 4\left(P_t - 0.75\right)
+  \]
+
+  <p>
+    向きがランダムなら、関係がそろった三者組の 3/4 が推移的になる。
+    そのため 0.75 を引いて 4 倍し、ランダムで 0、完全に推移的で 1 になるようにしてある。
+    検定は、向きをランダムに入れ替えたネットワークとの比較で行う。
+  </p>
+
+  <h3>4.3 直線性と推移性はどう違うのか</h3>
+
+  <p>
+    \(h'\) と \(t_{\text{tri}}\) は、どちらも「きれいに一列に並ぶか」を見ているように見えるが、問うていることが違う。
+  </p>
+
+  <ul>
+    <li>
+      <b>推移性</b>は、関係がわかっている三者について、「A が B に、B が C に優位なら、A は C にも優位か」を問う。
+      見ているのは<b>矛盾がないか</b>（三すくみがないか）だけである。
+    </li>
+    <li>
+      <b>直線性</b>は、群れ全体が 1 位から最下位まで一列に並ぶかを問う。
+      完全に一列に並ぶ（\(h = 1\)）には、矛盾がないことに加えて、<b>すべての二者に優劣がついている</b>ことが要る。
+    </li>
+  </ul>
+
+  <p>
+    つまり、直線的 ＝ 推移的 ＋ 全部のペアに関係がある、という関係になっている。
+  </p>
+
+  <p>
+    ただし、優劣がついていないペアも、計算から締め出されるわけではない。
+    勝ち負けが同数のペア（1 勝 1 敗など）は<b>引き分け</b>として、両方に 0.5 ずつ勝ちを振り分けて \(v_i\) に足す。
+    David's score でも、1 勝 1 敗なら \(P_{ij} = 0.5\)、補正した \(D_{ij}\) も 0.5 になる。
+    引き分けがあると \(v_i\) が平均に寄るので、そのぶん \(h\) は 1 より小さくなる。
+    一方、一度もやりとりのない<b>未知</b>のペアは、4.1 節の \(h'\) のように、どちらに転ぶかわからないものとして扱う。
+    引き分けは「やりとりはあったが差がない」、未知は「そもそも情報がない」で、扱いが違うことに注意する。
+  </p>
+
+  <p>
+    すべてのペアに関係がついている群れでは、二つは同じものになる。
+    このとき、三すくみになっている三者組の数 \(d\) は、各個体が優位に立っている相手の数 \(v_i\) だけから計算できる
+    （Kendall の数え方）。
+  </p>
+
+  \[
+    d = \frac{N(N-1)(2N-1)}{12} - \frac{1}{2}\sum_{i=1}^{N} v_i^2
+  \]
+
+  <p>
+    \(v_i\) が \(0, 1, \dots, N-1\) を一つずつとる（完全に直線的な）とき \(d = 0\) になり、
+    \(v_i\) が全員そろうほど \(d\) は大きくなる。
+    Landau の \(h\) も \(v_i\) のばらつきから計算していたので、この場合は \(h\) が大きいことと三すくみが少ないことは同じことの裏表で、
+    個体数が奇数なら \(h\) は Kendall の直線性係数 \(K = 1 - 24d/(N^3 - N)\) とちょうど一致する。
+  </p>
+
+  <p>
+    二つが分かれるのは、関係が未知のペアがあるときである。
+    たとえば観察が少なくて半分のペアの関係がわからない群れでも、わかっている三者組に三すくみが一つもなければ
+    \(t_{\text{tri}} = 1\) になる。一方 \(h'\) は、未知のペアがどちらに転んでもいいように計算し直すので、
+    「一列に並ぶとは言い切れない」という結果になりうる。
+    どちらも正しく、<b>矛盾がないこと</b>と、<b>全部に順序がつくこと</b>は別の性質だ、というだけである。
+    群れの関係がどれくらい埋まっているかで、どちらを報告するかを選ぶ。
+  </p>
+
+  <h2>5. David's score</h2>
+
+  <p>
+    David's score（DS）は、勝率の合計に「強い相手に勝ったか」の重みを足した指標である。
+    まず各個体の勝率の合計 \(w_i\) と負け率の合計 \(l_i\) を出す。
+  </p>
+
+  \[
+    w_i = \sum_{j \ne i} P_{ij}, \qquad
+    l_i = \sum_{j \ne i} P_{ji}
+  \]
+
+  <p>
+    次に、勝った相手の \(w\) で重みをつけた \(w_{2,i}\) と、負けた相手の \(l\) で重みをつけた \(l_{2,i}\) を出す。
+  </p>
+
+  \[
+    w_{2,i} = \sum_{j \ne i} P_{ij}\, w_j, \qquad
+    l_{2,i} = \sum_{j \ne i} P_{ji}\, l_j
+  \]
+
+  \[
+    \mathrm{DS}_i = w_i + w_{2,i} - l_i - l_{2,i}
+  \]
+
+  <p>
+    強い個体（\(w_j\) が大きい）に勝つと \(w_2\) が大きく増え、
+    弱い個体（\(l_j\) が大きい）に負けると \(l_2\) が大きく増える。
+    勝ち数の単純な合計ではなく、「誰に勝って誰に負けたか」が効いてくるのが DS のよいところ。
+  </p>
+
+  <h3>5.1 正規化</h3>
+
+  <p>
+    DS は個体数 \(N\) によって値の範囲が変わるので、群れどうしを比べるときは正規化する。
+    DS の取りうる値は \(-N(N-1)/2\) から \(N(N-1)/2\) までなので、
+  </p>
+
+  \[
+    \mathrm{NormDS}_i = \frac{\mathrm{DS}_i + N(N-1)/2}{N}
+  \]
+
+  <p>
+    とすると \(0\) から \(N-1\) の範囲に収まり、「優位に立っている相手の数」と同じ目盛りで読める。
+  </p>
+
+  <h3>5.2 少ない観察回数への補正</h3>
+
+  <p>
+    \(P_{ij}\) をそのまま使うと、1 回だけ戦って 1 回勝ったペアも、
+    100 回戦って 100 回勝ったペアも同じ \(P_{ij} = 1\) になってしまう。
+    de Vries et al. (2006) は、観察回数が少ないほど 1/2 に引き戻す補正を提案した。
+  </p>
+
+  \[
+    D_{ij} = P_{ij} - \left(P_{ij} - \frac{1}{2}\right)\frac{1}{n_{ij} + 1}
+          = \frac{x_{ij} + 1/2}{n_{ij} + 1}
+  \]
+
+  <p>
+    \(n_{ij}\) が大きければ \(D_{ij} \approx P_{ij}\)、小さければ \(1/2\) に近づく。
+    観察回数にばらつきがあるデータでは、\(P_{ij}\) の代わりに \(D_{ij}\) を使うのが今はふつう。
+  </p>
+
+  <h3>5.3 順位の勾配（steepness）</h3>
+
+  <p>
+    直線性は「並べられるか」を問うが、並べたときに上と下の差がどれくらい大きいかは別の問題である。
+    1 位がほかを圧倒している群れと、僅差で並んでいる群れは、どちらも完全に直線的でありうる。
+    de Vries et al. (2006) は、\(D_{ij}\) から計算した NormDS を順位 \(r\)（1, 2, …, \(N\)）に対して回帰し、
+    その傾きの絶対値を<b>勾配</b>と呼んだ。
+  </p>
+
+  \[
+    \mathrm{NormDS}_{(r)} \approx \beta_0 + \beta_1 r, \qquad
+    \text{steepness} = \left| \beta_1 \right|
+  \]
+
+  <p>
+    完全に一方的な関係ばかりなら 1、全員が五分五分なら 0。
+    群れどうしや種どうしで「専制的か平等的か」を比べるときに使う。
+    検定は、各ペアの中で勝ち負けをランダムに入れ替えたときの傾きの分布との比較。
+  </p>
+
+  <h2>6. I&amp;SI 法</h2>
+
+  <p>
+    I&amp;SI（de Vries 1998）は、スコアではなく<b>並べ方そのもの</b>を最適化する方法である。
+    個体を一列に並べたとき、下の個体が上の個体に優位になっているペアを<b>不一致</b>と呼ぶ。
+    I&amp;SI は次の二段階で並び順を決める。
+  </p>
+
+  <ol>
+    <li>不一致の数 \(I\) を最小にする。</li>
+    <li>その中で、不一致の<b>強さ</b>の合計を最小にする。</li>
+  </ol>
+
+  \[
+    SI = \sum_{(i,j)\ \text{不一致}} \left| r_i - r_j \right|
+  \]
+
+  <p>
+    \(r_i\) は個体 \(i\) の順位。
+    1 位が 2 位に負けるより、1 位が最下位に負けるほうが「ひどい不一致」なので、
+    その距離の合計を小さくする、という考え方である。
+    結果は数値ではなく順序（1 位、2 位、……）だけなので、
+    個体の強さを連続量として他の変数と相関させたいときは DS のほうが扱いやすい。
+  </p>
+
+  <h2>7. Elo-rating</h2>
+
+  <p>
+    Elo-rating はチェスのために作られた方法で、やりとりが起きるたびにスコアを更新していく。
+    個体 \(i\) のレーティングを \(R_i\) として、\(i\) が \(j\) に勝つ「期待確率」を
+  </p>
+
+  \[
+    p_{ij} = \frac{1}{1 + 10^{(R_j - R_i)/400}}
+  \]
+
+  <p>
+    と置く。実際に \(i\) が勝ったら、予想とのずれの分だけ点を移す。
+  </p>
+
+  \[
+    R_i \leftarrow R_i + k\,(1 - p_{ij}), \qquad
+    R_j \leftarrow R_j - k\,(1 - p_{ij})
+  \]
+
+  <p>
+    格下に勝っても（\(p_{ij}\) が 1 に近い）点はほとんど動かず、
+    格上に勝つ（\(p_{ij}\) が 0 に近い）と大きく動く。
+    \(k\) は一回のやりとりでどれだけ点を動かすかを決める定数。
+    400 や初期値（1000 など）は目盛りの取り方なので、結果の順序には影響しない。
+  </p>
+
+  <p>
+    Elo のよいところは、個体の出入りがあっても計算を続けられることと、
+    順位の時間変化が見えること。
+    反面、\(k\) の値と、やりとりの順番に結果が依存する。
+  </p>
+
+  <p>
+    ちなみに Elo は、8 節の固有ベクトル法の仲間ではない。
+    固有ベクトル法は、勝敗行列全体を一度に見て「強い相手に勝った個体は強い」がつじつまの合う解を求める。
+    Elo は、上の \(p_{ij}\) のように「強さの差から勝つ確率が決まる」というモデル（一対比較の Bradley–Terry モデルと同じ形）を置き、
+    やりとりが一件起きるたびに少しずつ強さを直していく。全部のデータを一度に当てはめるのではなく、
+    一件ずつ逐次に推定するのが Elo の特徴で、だから時間変化が追える。
+  </p>
+
+  <h3>7.1 k は何を決めているのか</h3>
+
+  <p>
+    更新式をもう一度見ると、
+  </p>
+
+  \[
+    R_i \leftarrow R_i + k \times (\text{実際の結果} - \text{予想した勝率})
+  \]
+
+  <p>
+    という形をしている。これは、強さの差で勝率が決まるモデルを、やりとりが一件起きるたびに少しずつ当てはめ直していく計算で、
+    \(k\) はその一歩の大きさ（学習率）に当たる。
+  </p>
+
+  <ul>
+    <li>\(k\) が小さいと、値は安定するが、本当に順位が入れ替わったとき（9.4 節）についていくのが遅い。</li>
+    <li>\(k\) が大きいと、すぐに追いつくが、たまたまの一敗にも振り回されて値がぶれる。</li>
+  </ul>
+
+  <p>
+    つまり \(k\) を決めることは、「本当の強さがどれくらいの速さで変わるか」と「一回の勝ち負けにどれくらい偶然が混ざるか」の兼ね合いについて、
+    仮定を置くことに当たる。どれくらいの幅を持たせるかで結果が変わるのは、そのとおりである。
+    しかも \(k\) が固定だと、データがいくら増えても一歩の大きさは変わらないので、レーティングはいつまでも揺れ続ける。
+  </p>
+
+  <p>
+    ちなみに、予想外の勝ち（格上に勝った）ほど点が大きく動くのは、上の式に最初から入っている。
+    \(1 - p_{ij}\) は、勝つ確率が低かったほど大きくなるからである。
+    「逆転が起きた」と人が判断して色をつけるのではなく、予想外の度合いに比例して自動で大きくなる。
+  </p>
+
+  <h3>7.2 k をどう決めるか</h3>
+
+  <p>
+    昔は \(k = 100\) や \(200\) を慣習的に使うことが多かったが、今は根拠をもって決める方法がいくつかある。
+  </p>
+
+  <ul>
+    <li>
+      <b>予測の当たり具合で選ぶ</b>（Foerster et al. 2016）：
+      各やりとりの<b>直前</b>のレーティングから計算した \(p_{ij}\) を、実際の勝敗が出る確率とみなして、尤度
+      \(\displaystyle L(k) = \prod_{t} p_{\text{勝者},\text{敗者}}^{(t)}\)
+      が最大になる \(k\)（と初期値）を選ぶ。
+      全データを使うが、使い方は「その時点までの情報で次の一件を予測する」形である。
+      最後に出た順位に合うように \(k\) を逆算するのとは違う。それをやると、答えに合わせて物差しを作ることになる。
+    </li>
+    <li>
+      <b>測った勝者効果から決める</b>（de Vries 2009）：
+      いろいろな動物で、同じ強さの相手に勝った個体が、次に同じ強さの相手に勝つオッズは平均 1.87 倍、
+      つまり勝率が 0.5 から 0.65 に上がるという報告がある。この変化を再現する \(k\) を逆算すると、およそ 206 になる。
+      \(k\) を「勝つと次にどれだけ勝ちやすくなるか」という、測れる生物学的な量に結びつける考え方である。
+      de Vries は、勝ち負けで強さが掛け算的に変わるシミュレーションのルールが、Elo の更新と同じ形になることも示している。
+    </li>
+    <li>
+      <b>順番への依存を消す</b>（Sánchez-Tójar et al. 2018）：
+      \(k\) とは別の問題として、Elo はやりとりの順番にも依存する。
+      時間順序の情報がないデータなら、順番をランダムに何度も並べ替えて Elo を計算し、その平均を使う（randomized Elo、<code>aniDom</code>）。
+    </li>
+  </ul>
+
+  <h3>7.3 Glicko：一歩の大きさを個体ごとに変える</h3>
+
+  <p>
+    固定の \(k\) の問題に正面から手を入れたのが、Glickman (1999) の <b>Glicko</b> である。
+    Glicko では、各個体が強さの推定値 \(r\) と、その<b>不確かさ</b> \(\mathrm{RD}\)（rating deviation）の二つを持つ。
+    個体 \(i\) が相手 \(j\) と対戦して結果 \(s\)（勝ちなら 1、負けなら 0）が出たとき、更新は次のようになる。
+  </p>
+
+  \[
+    q = \frac{\ln 10}{400}
+  \]
+
+  \[
+    g(\mathrm{RD}) = \frac{1}{\sqrt{1 + 3q^2 \mathrm{RD}^2/\pi^2}}
+  \]
+
+  \[
+    E = \frac{1}{1 + 10^{-g(\mathrm{RD}_j)(r_i - r_j)/400}}
+  \]
+
+  \[
+    d^2 = \left[ q^2\, g(\mathrm{RD}_j)^2\, E(1-E) \right]^{-1}
+  \]
+
+  \[
+    r_i' = r_i + \frac{q}{1/\mathrm{RD}_i^2 + 1/d^2}\, g(\mathrm{RD}_j)\,(s - E)
+  \]
+
+  \[
+    \mathrm{RD}_i' = \left( \frac{1}{\mathrm{RD}_i^2} + \frac{1}{d^2} \right)^{-1/2}
+  \]
+
+  <p>
+    式は長いが、言っていることは単純である。
+  </p>
+
+  <ul>
+    <li>
+      \((s - E)\) は Elo と同じ「実際の結果 − 予想」。
+      その前の係数が Elo の \(k\) に当たり、<b>自分の不確かさ \(\mathrm{RD}_i\) が大きいほど大きい</b>。
+      まだよくわからない個体は一回の結果で大きく動き、データが多い個体はあまり動かない。
+    </li>
+    <li>
+      対戦するたびに \(\mathrm{RD}_i\) は小さくなる（二つ目の式）。データが増えるほど、一歩が自動的に小さくなる。
+    </li>
+    <li>
+      \(g(\mathrm{RD}_j)\) は、<b>相手</b>の強さが不確かなら、その対戦の情報を割り引く係数である。
+    </li>
+    <li>
+      しばらくやりとりがないと、不確かさは \(\mathrm{RD} \leftarrow \sqrt{\mathrm{RD}^2 + c^2 t}\) のように時間 \(t\) とともに広がる。
+      久しぶりに観察された個体は、また動きやすくなる。
+    </li>
+  </ul>
+
+  <p>
+    これで「データが増えても揺れ続ける」問題はなくなる。ただし定数が消えたわけではない。
+    今度は、不確かさがどれくらいの速さで広がるかを決める \(c\)（と、初期の \(\mathrm{RD}\)）を決めなければならない。
+    違いは、\(c\) が「本当の強さがどれくらいの速さで変わりうるか」という、生き物について解釈できる量になったことである。
+    Elo の \(k\) が「変わる速さ」と「偶然の大きさ」を一つにまとめていたのを、Glicko は二つに分けた、と言ってもいい。
+  </p>
+
+  <p>
+    動物での使用例として、Curley 研究室のマウスの研究（Williamson et al. 2016）は Glicko を使っている。
+    初期値 2200、初期の \(\mathrm{RD}\) を 300、\(c = 3\) とし、\(c\) は先行研究でマウスの攻撃行動に妥当とされた値を使った、と書いている。
+    R の <code>PlayerRatings</code> パッケージで計算できる。
+  </p>
+
+  <h3>7.4 Elo と Glicko の共通の限界</h3>
+
+  <p>
+    Elo も Glicko も、「各個体に一つの強さがあり、二者の勝ち負けはその差で決まる」というモデルである。
+    そのため、三すくみ（A が B に、B が C に、C が A に勝つ）や、特定の二者のあいだだけにある関係は表せない。
+    Drews の整理でいえば、二者の関係より、個体の属性として優位を見る側に寄ったモデルである（<a href="definition.html">優劣とは何か</a>の 2 節）。
+    使う前に、4 節の推移性や直線性で、一本の数直線に並べてよい群れかどうかを確かめておく必要がある。
+  </p>
+
+  <h3>7.5 寄り道：学習理論も同じ問題を抱えていた</h3>
+
+  <p>
+    Elo の更新式は、動物の学習理論でおなじみの式とそっくりである。
+    Rescorla–Wagner のモデルでは、手がかりの連合強度 \(V\) を、実際に来た強化 \(\lambda\) と予測 \(V\) のずれで更新する。
+  </p>
+
+  \[
+    \Delta V = \alpha\beta\,(\lambda - V)
+  \]
+
+  \[
+    \Delta R_i = k\,(s - p_{ij})
+  \]
+
+  <p>
+    どちらも「学習率 ×（実際 − 予測）」である。強化学習の TD 学習も同じ形をしている。
+    なので、学習率を固定すると、いつまでも揺れ続けるか、変化に追いつけないかのどちらかになる、という 7.1 節の問題を、
+    学習の研究者たちもずっと抱えてきた。乗り越え方は、だいたい次の順に洗練されてきた。
+  </p>
+
+  <ul>
+    <li>
+      <b>学習率を下げていく</b>：試行の回数 \(n\) に応じて学習率を \(1/n\) のように小さくしていくと、
+      推定は過去の結果の平均になり、環境が変わらなければ正しい値に収束する（Robbins &amp; Monro 1951 の確率近似）。
+      ただし、途中で環境が変わるとほとんど追いつけない。
+    </li>
+    <li>
+      <b>不確かさで学習率を決める</b>：工学の Kalman フィルタの考え方で、
+      推定の不確かさ \(P\) と、観測のノイズ \(N\) の比で学習率を決める。
+    </li>
+  </ul>
+
+  \[
+    K = \frac{P}{P + N}
+  \]
+
+  \[
+    \hat{x} \leftarrow \hat{x} + K\,(y - \hat{x})
+  \]
+
+  \[
+    P \leftarrow (1-K)\,P + Q
+  \]
+
+  <p>
+      推定が不確かなうちは学習率 \(K\) が大きく、観測が増えて \(P\) が縮むと小さくなる。
+      \(Q\) は本当の値がどれくらい動くかで、これがあるので \(P\) は 0 にはならず、変化にも追いつける。
+      7.3 節の Glicko は、まさにこれを一対比較に当てはめたものである（\(\mathrm{RD}^2\) が \(P\)、\(c^2\) が \(Q\) に当たる）。
+      動物の学習理論では、予想外のことが続くと注意が高まって学習が速くなる、という Pearce &amp; Hall (1980) のモデルが近い発想である。
+  </p>
+
+  <ul>
+    <li>
+      <b>変わりやすさそのものを推定する</b>：Behrens et al. (2007) は、ヒトが環境の変わりやすさ（volatility）に応じて、
+      学習率を自分で上げ下げしていることを示した。これを階層的なベイズモデルとしてまとめたのが、Mathys et al. (2011) の HGF である。
+      Glickman (2001) の Glicko-2 も、Glicko に「変わりやすさ」の項を足して、\(Q\) に当たるものをデータから推定するようにしている。
+    </li>
+  </ul>
+
+  <p>
+    つまり、どの分野も学習率をなくしたのではなく、「不確かさ」や「変わりやすさ」から学習率を決める形に置き換えた。
+    Elo → Glicko → Glicko-2 の流れは、Rescorla–Wagner → Kalman フィルタ → 変わりやすさの推定、という学習理論の流れとほぼ平行している。
+  </p>
+
+  <p>
+    ここからは考えたことのメモである。
+    Rowell (1974) は、やりとりの結果が予測できることは、ふつうの学習で説明できると書いていた（<a href="definition.html">優劣とは何か</a>の 3 節）。
+    もし動物自身が、相手ごとに「この相手には勝てそうか」を Rescorla–Wagner や Kalman フィルタのように学習しているのだとしたら、
+    Elo や Glicko は研究者の計算道具であると同時に、動物の頭の中のモデルとしても読めるかもしれない。
+    そう考えると、\(k\) や \(c\) をどう決めるかは、研究者の都合ではなく、
+    その動物がどれくらいの速さで相手との関係を学び直すのか、という測れる問題になる。
+    1 位を抜いたときに 2 位の振る舞いがどれくらいの速さで変わるか（<a href="status-rank.html">地位と順位</a>の 2.3 節）は、その手がかりになりそうである。
+  </p>
+
+  <h2>8. 固有ベクトルによる方法</h2>
+
+  <p>
+    ここからは動物行動よりスポーツのランキングでよく使われる方法だが、
+    考え方として面白いので書いておく。
+    基本の発想は「強い相手に勝った個体は強い」という DS と同じもので、それを最後まで突き詰める。
+  </p>
+
+  <h3>8.1 Keener 法と Perron–Frobenius の定理</h3>
+
+  <p>
+    個体 \(i\) の強さ \(r_i\) を、「\(i\) が \(j\) に対してどれだけ優勢か」を表す \(a_{ij} \ge 0\) と、
+    相手の強さ \(r_j\) の積の合計に比例する、と決める（Keener 1993）。
+  </p>
+
+  \[
+    \lambda\, r_i = \sum_{j} a_{ij}\, r_j
+    \quad\Longleftrightarrow\quad
+    A\mathbf{r} = \lambda \mathbf{r}
+  \]
+
+  <p>
+    つまり強さのベクトル \(\mathbf{r}\) は行列 \(A\) の固有ベクトルである。
+    \(a_{ij}\) には、たとえば少ない観察回数を補正した勝率 \((x_{ij}+1)/(n_{ij}+2)\) を使う。
+  </p>
+
+  <p>
+    問題は、固有ベクトルはたくさんあるので、どれを強さとみなせばいいのか、
+    そもそも成分がすべて正のものがあるのか、という点。
+    これに答えるのが <b>Perron–Frobenius の定理</b>で、
+    \(A\) の成分がすべて非負で、かつ<b>既約</b>（どの個体からどの個体へも、勝ち負けの関係をたどってたどり着ける）なら、
+  </p>
+
+  <ul>
+    <li>最大の固有値 \(\lambda_{\max}\) は正の実数で、</li>
+    <li>それに対応する固有ベクトルは、成分をすべて正にとれ、</li>
+    <li>そのような固有ベクトルは定数倍を除いて<b>一意に</b>決まる。</li>
+  </ul>
+
+  <p>
+    なので「最大固有値の固有ベクトル」を、迷わず強さのベクトルとして使える。
+    勝ち数 \(x_{ij}\) をそのまま \(a_{ij}\) にすると、ほかと一度も戦っていない小集団や、
+    誰にも勝ったことのない個体がいたときに既約性が崩れる。
+    上の \((x_{ij}+1)/(n_{ij}+2)\) のように 1 を足しておけば、対角以外の成分がすべて正になるので、
+    既約性は自動的に満たされる。この「1 を足す」は、ベイズ的にはどのペアにも五分五分の事前情報を置くことに当たる。
+    （この節の整理は Langville &amp; Meyer の <i>Who's #1?</i>（邦訳『レイティング・ランキングの数理』）に多くを負っている。）
+  </p>
+
+  <h3>8.2 PageRank</h3>
+
+  <p>
+    PageRank はウェブページの重要度を決めるための方法だが、
+    「負けた個体が勝った個体に票を入れる」と読み替えると、そのまま順位に使える。
+    個体 \(i\) が負けた回数のうち、\(j\) に負けた割合を
+  </p>
+
+  \[
+    H_{ij} = \frac{x_{ji}}{\sum_{k} x_{ki}}
+  \]
+
+  <p>
+    とする（行 \(i\) が「\(i\) から出ていく票」）。
+    一度も負けていない個体の行はすべて 0 になってしまうので、その行は \(1/N\) で埋めて \(\bar{H}\) とする。
+    さらに、一定の確率 \(1-\alpha\) で誰にでも等しく票が飛ぶ項を足して
+  </p>
+
+  \[
+    G = \alpha \bar{H} + (1-\alpha)\frac{1}{N}\mathbf{1}\mathbf{1}^{\mathsf T}
+  \]
+
+  <p>
+    を作る。\(G\) は成分がすべて正なので、前の節の定理がそのまま使える。
+    強さを行ベクトル \(\boldsymbol{\pi}^{\mathsf T}\) で表して
+  </p>
+
+  \[
+    \boldsymbol{\pi}^{(k+1)\mathsf T} = \boldsymbol{\pi}^{(k)\mathsf T}\, G
+  \]
+
+  <p>
+    を収束するまで繰り返すと、その極限 \(\boldsymbol{\pi}^{\mathsf T} = \boldsymbol{\pi}^{\mathsf T} G\) が順位のスコアになる。
+    \(\alpha\) はウェブでは 0.85 がよく使われる。
+  </p>
+
+  <p>
+    博士論文では、勝ち負けではなく「接近に対して誰が誰を回避したか」のネットワークに PageRank を使って、
+    群れの中で注目が集まる個体を推定した。
+    こうした方法を動物の順位に使ったときの性質の比較は Brush, Krakauer &amp; Flack (2013) にまとまっている。
+  </p>
+
+  <h2>9. 出した順位をどこまで信じるか</h2>
+
+  <p>
+    どの方法でも、データを入れれば順位は出てくる。
+    問題はその順位がどれくらい確かなのかで、ここは論文でも書き忘れられがち。
+  </p>
+
+  <h3>9.1 観察回数の目安</h3>
+
+  <p>
+    Sánchez-Tójar et al. (2018) はシミュレーションで、
+    観察したやりとりの総数が個体数の 10〜20 倍くらいあれば、多くの方法で順位がおおむね安定することを示した。
+    5 羽の群れなら 50〜100 回、10 羽なら 100〜200 回。これより少ないなら、順位を細かく解釈しないほうが安全。
+  </p>
+
+  <h3>9.2 順位の不確かさを測る</h3>
+
+  <p>
+    同じ論文では、二つのやり方が提案されている。
+  </p>
+
+  <ul>
+    <li>
+      <b>繰り返し計算の一致度</b>：randomized Elo でやりとりの順番を何度も並べ替え、
+      個体ごとのレーティングがどれだけ安定しているか（反復率）を見る。
+    </li>
+    <li>
+      <b>データを半分に分ける</b>：やりとりをランダムに二つに分け、それぞれから出した順位がどれだけ一致するかを見る。
+    </li>
+  </ul>
+
+  <p>
+    どちらも <code>aniDom</code> パッケージで計算できる。
+  </p>
+
+  <h3>9.3 二つの順位を比べる</h3>
+
+  <p>
+    方法どうしや、時期どうしで順位を比べるときは順位相関を使う。
+    Kendall の \(\tau\) は、二つの順位で並び方が一致するペア（\(C\) 組）と食い違うペア（\(D\) 組）の数から
+  </p>
+
+  \[
+    \tau = \frac{C - D}{N(N-1)/2}
+  \]
+
+  <p>
+    と計算する。完全一致で 1、完全に逆で \(-1\)。
+    I&amp;SI の「不一致」と同じ発想で、二つの順位のあいだの不一致を数えている。
+  </p>
+
+  <h3>9.4 順位がぶれるのは、本当に変わったからかもしれない</h3>
+
+  <p>
+    9.2 節の方法で順位が不安定と出たとき、原因は二つ考えられる。
+    観察が足りなくて推定がぶれているのか、それとも順位そのものが本当に入れ替わったのか、である。
+  </p>
+
+  <p>
+    Grethen et al. (2023) は、産卵鶏 418 羽を 20 羽ほどの群れ 3 つと 120 羽ほどの群れ 3 つに分け、
+    性成熟の前と後の二つの時期にやりとりを観察して、Elo で順位を出した。
+    二つの時期をまとめて計算すると、観察回数は足りているはずなのに、順位の不確かさが大きく出た。
+    ところが成熟後の時期だけで計算すると、順位は安定していた。
+    さらに、若い時期によく勝っていた個体は、成熟後にはかえって勝ちにくくなっていた。
+    つまり、ぶれの原因は推定の誤差ではなく、二つの時期のあいだに順位が実際に入れ替わったこと（社会的移動）だった、と彼らは考えている。
+  </p>
+
+  <p>
+    ニワトリは、Schjelderup-Ebbe 以来、劣位の側が一貫して服従することで安定した順位が保たれる動物の代表とされてきた。
+    その順位も、時期をまたげば変わりうる。
+    長い期間のデータをまとめて一つの順位を出す前に、期間を区切って順位が保たれているかを確かめておくほうがいい。
+    Elo のように時間順に更新する方法なら、この変化そのものを追うこともできる（7 節）。
+  </p>
+
+  <h2>10. 道具と、読むならこの本</h2>
+
+  <h3>10.1 R のパッケージ</h3>
+
+  <ul>
+    <li><code>compete</code>：h'、David's score、I&amp;SI、t<sub>tri</sub> などがひととおり。</li>
+    <li><code>steepness</code>：5.3 節の勾配とその検定。</li>
+    <li><code>EloRating</code>：時系列データからの Elo と、その可視化。</li>
+    <li><code>EloOptimized</code>：Foerster et al. (2016) の最尤推定で \(k\) を決める Elo。</li>
+    <li><code>PlayerRatings</code>：Glicko（7.3 節）。Elo も計算できる。</li>
+    <li><code>aniDom</code>：randomized Elo と、9 節の不確かさの評価。</li>
+  </ul>
+
+  <h3>10.2 読むならこの本・この論文</h3>
+
+  <ul>
+    <li>
+      <b>Langville &amp; Meyer『レイティング・ランキングの数理』</b>：
+      8 節の固有ベクトル法をはじめ、スポーツやウェブで使われているレーティングの方法が、
+      線形代数の言葉で丁寧に説明されている。動物の本ではないが、「順位をつけるとは何をすることか」を考えるならこれが一番。
+    </li>
+    <li>
+      <b>Whitehead『Analyzing Animal Societies』</b>：
+      動物の社会関係を定量的に扱う方法の教科書で、優劣の章もある。バイブル。
+    </li>
+    <li>
+      <b>Sánchez-Tójar et al. (2018)</b>：
+      方法ごとの性質の比較と、実務上の推奨がまとまっている。これから順位を出す人は、まずこの論文から。
+    </li>
+    <li>
+      <b>Drews (1993)</b>：
+      1 節の定義の出典。定義をめぐる議論の歴史も整理されていて、「優位とは何か」で迷ったら戻ってくる場所。
+    </li>
+  </ul>
+
+  <h3>10.3 データで試すなら：DomArchive</h3>
+
+  <p>
+    ここまでの方法を実際のデータで試したいなら、<b>DomArchive</b>（Strauss et al. 2022）が使える。
+    1922 年以降に出版された優劣のデータを集めたもので、190 本の研究、135 種、367 の群れの 436 データセットが、
+    勝敗行列の形で R のパッケージに入っている。ハシブトガラスのデータ（Izawa &amp; Watanabe 2008）も含まれている。
+    種や観察条件（飼育か野外か）、やりとりの種類で絞り込めるので、同じ方法をいろいろな群れに当てて比べられる。
+  </p>
+
+  <p>
+    行列の並べ方は 2 節と同じで、行が勝者、列が敗者である。
+    ここでいう勝者は「相手に服従や回避をさせた個体」、敗者は「服従や回避を示した個体」と定義されている。
+    100 年分のデータを集める側も、劣位の側の行動で勝ち負けを決めているわけである（<a href="definition.html">優劣とは何か</a>の 5 節）。
+  </p>
+
+  <p>
+    インストールは GitHub から行う（<code>devtools::install_github("DomArchive/DomArchive")</code>）。
+    使い方は付属の vignette にある。データを追加してほしいときは、GitHub の Issue から提案できる。
+  </p>
+
+  <h2>11. まとめ</h2>
+
+  <ul>
+    <li>優劣は二者関係の性質で、順位はそれを一列に並べ直した二次的な量。</li>
+    <li>まず \(h'\) や \(t_{\text{tri}}\) で、並べ直せる構造かを確かめる。</li>
+    <li>集計済みデータで連続量が欲しいなら、\(D_{ij}\) で補正した David's score。群れの比較には勾配も。</li>
+    <li>時系列データがあるなら Elo。\(k\) は最尤推定か、randomized Elo を使う。</li>
+    <li>固有ベクトル法は「強い相手に勝った個体は強い」を突き詰めたもの。既約性に注意する。</li>
+    <li>順位を出したら、観察回数が足りているか、どれくらい安定しているかも報告する。</li>
+  </ul>
+
+
+  <h2>参考文献</h2>
+
+  <ul class="refs">
+    <li>Behrens, T. E. J., Woolrich, M. W., Walton, M. E., &amp; Rushworth, M. F. S. (2007). Learning the value of information in an uncertain world. <i>Nature Neuroscience</i>, 10(9), 1214–1221.</li>
+    <li>Brush, E. R., Krakauer, D. C., &amp; Flack, J. C. (2013). A family of algorithms for computing consensus about node state from network data. <i>PLoS Computational Biology</i>, 9(7), e1003109. <a href="https://doi.org/10.1371/journal.pcbi.1003109">https://doi.org/10.1371/journal.pcbi.1003109</a></li>
+    <li>David, H. A. (1987). Ranking from unbalanced paired-comparison data. <i>Biometrika</i>, 74(2), 432–436.</li>
+    <li>de Vries, H. (1995). An improved test of linearity in dominance hierarchies containing unknown or tied relationships. <i>Animal Behaviour</i>, 50(5), 1375–1389.</li>
+    <li>de Vries, H. (1998). Finding a dominance order most consistent with a linear hierarchy: a new procedure and review. <i>Animal Behaviour</i>, 55(4), 827–843.</li>
+    <li>de Vries, H. (2009). On using the DomWorld model to evaluate dominance ranking methods. <i>Behaviour</i>, 146, 843–869.</li>
+    <li>de Vries, H., Stevens, J. M. G., &amp; Vervaecke, H. (2006). Measuring and testing the steepness of dominance hierarchies. <i>Animal Behaviour</i>, 71(3), 585–592.</li>
+    <li>Drews, C. (1993). The concept and definition of dominance in animal behaviour. <i>Behaviour</i>, 125(3–4), 283–313.</li>
+    <li>Foerster, S., Franz, M., Murray, C. M., Gilby, I. C., Feldblum, J. T., Walker, K. K., &amp; Pusey, A. E. (2016). Chimpanzee females queue but males compete for social status. <i>Scientific Reports</i>, 6, 35404.</li>
+    <li>Glickman, M. E. (1999). Parameter estimation in large dynamic paired comparison experiments. <i>Journal of the Royal Statistical Society: Series C (Applied Statistics)</i>, 48(3), 377–394.</li>
+    <li>Glickman, M. E. (2001). Dynamic paired comparison models with stochastic variances. <i>Journal of Applied Statistics</i>, 28(6), 673–689.</li>
+    <li>Grethen, K. J., Gómez, Y., &amp; Toscano, M. J. (2023). Coup in the coop: rank changes in chicken dominance hierarchies over maturation. <i>Behavioural Processes</i>, 210, 104904.</li>
+    <li>Izawa, E.-I., &amp; Watanabe, S. (2008). Formation of linear dominance relationship in captive jungle crows (<i>Corvus macrorhynchos</i>): implications for individual recognition. <i>Behavioural Processes</i>, 78(1), 44–52.</li>
+    <li>Keener, J. P. (1993). The Perron–Frobenius theorem and the ranking of football teams. <i>SIAM Review</i>, 35(1), 80–93.</li>
+    <li>Landau, H. G. (1951). On dominance relations and the structure of animal societies: I. Effect of inherent characteristics. <i>Bulletin of Mathematical Biophysics</i>, 13, 1–19.</li>
+    <li>Langville, A. N., &amp; Meyer, C. D. (2012). <i>Who's #1? The Science of Rating and Ranking</i>. Princeton University Press.（邦訳：『レイティング・ランキングの数理』共立出版）</li>
+    <li>Mathys, C., Daunizeau, J., Friston, K. J., &amp; Stephan, K. E. (2011). A Bayesian foundation for individual learning under uncertainty. <i>Frontiers in Human Neuroscience</i>, 5, 39.</li>
+    <li>Neumann, C., Duboscq, J., Dubuc, C., Ginting, A., Irwan, A. M., Agil, M., Widdig, A., &amp; Engelhardt, A. (2011). Assessing dominance hierarchies: validation and advantages of progressive evaluation with Elo-rating. <i>Animal Behaviour</i>, 82(4), 911–921.</li>
+    <li>Pearce, J. M., &amp; Hall, G. (1980). A model for Pavlovian learning: variations in the effectiveness of conditioned but not of unconditioned stimuli. <i>Psychological Review</i>, 87(6), 532–552.</li>
+    <li>Rescorla, R. A., &amp; Wagner, A. R. (1972). A theory of Pavlovian conditioning: variations in the effectiveness of reinforcement and nonreinforcement. In A. H. Black &amp; W. F. Prokasy (Eds.), <i>Classical Conditioning II: Current Research and Theory</i> (pp. 64–99). Appleton-Century-Crofts.</li>
+    <li>Robbins, H., &amp; Monro, S. (1951). A stochastic approximation method. <i>Annals of Mathematical Statistics</i>, 22(3), 400–407.</li>
+    <li>Rowell, T. E. (1974). The concept of social dominance. <i>Behavioral Biology</i>, 11(2), 131–154.</li>
+    <li>Sánchez-Tójar, A., Schroeder, J., &amp; Farine, D. R. (2018). A practical guide for inferring reliable dominance hierarchies and estimating their uncertainty. <i>Journal of Animal Ecology</i>, 87(3), 594–608.</li>
+    <li>Shizuka, D., &amp; McDonald, D. B. (2012). A social network perspective on measurements of dominance hierarchies. <i>Animal Behaviour</i>, 83(4), 925–934.</li>
+    <li>Strauss, E. D., DeCasien, A. R., Galindo, G., Hobson, E. A., Shizuka, D., &amp; Curley, J. P. (2022). DomArchive: a century of published dominance data. <i>Philosophical Transactions of the Royal Society B</i>, 377, 20200436. <a href="https://github.com/DomArchive/DomArchive">https://github.com/DomArchive/DomArchive</a></li>
+    <li>Whitehead, H. (2008). <i>Analyzing Animal Societies: Quantitative Methods for Vertebrate Social Analysis</i>. University of Chicago Press.</li>
+    <li>Williamson, C. M., Lee, W., &amp; Curley, J. P. (2016). Temporal dynamics of social hierarchy formation and maintenance in male mice. <i>Animal Behaviour</i>, 115, 259–272.</li>
+  </ul>
+
+  <hr>
+
+  <p class="small">
+    <a href="index.html">雑記帳の一覧へ</a> ｜ <a href="../ja.html">トップへ戻る</a>
+  </p>
+
+</div>
+</body>
+</html>
