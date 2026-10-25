@@ -69,8 +69,34 @@
     }
 
     .lang {
-      text-align: right;
-      font-size: 13px;
+      display: flex;
+      justify-content: flex-end;
+      margin: 0 0 20px;
+    }
+
+    .lang a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 24px;
+      border: 2px solid #174ea6;
+      border-radius: 8px;
+      background: #eef4ff;
+      color: #174ea6;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-decoration: none;
+    }
+
+    .lang a:hover {
+      background: #dce9ff;
+    }
+
+    .lang a:focus-visible {
+      outline: 3px solid #174ea6;
+      outline-offset: 3px;
     }
 
     .research {
@@ -137,6 +163,10 @@
         margin: 12px;
       }
 
+      .lang a {
+        width: 100%;
+      }
+
       .profile {
         flex-direction: column;
         gap: 10px;
@@ -171,9 +201,9 @@
 <body>
 <div class="container">
 
-  <p class="lang">
-    <a href="ja.html">日本語</a>
-  </p>
+  <nav class="lang" aria-label="Language">
+    <a href="ja.html" lang="ja" hreflang="ja">日本語で読む <span aria-hidden="true"> →</span></a>
+  </nav>
 
   <h1>Illia Aota</h1>
 
