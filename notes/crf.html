@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>CRF とその受容体 / 青田伊莉安</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 20px;
+      font-family: "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #000;
+
+      background-color: #fff;
+      background-image: url("../aota-bg.png");
+      background-repeat: repeat;
+      background-size: 360px auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4px 20px 10px;
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    h1 {
+      font-size: 24px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 32px;
+      border-bottom: 1px solid #999;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-top: 22px;
+    }
+
+    a {
+      color: #0000ee;
+      text-decoration: underline;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+    }
+
+    .nav {
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .note {
+      border: 1px dashed #999;
+      padding: 6px 12px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin: 12px 0;
+    }
+
+    table {
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    th, td {
+      border: 1px solid #999;
+      padding: 4px 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    td.num {
+      text-align: right;
+    }
+
+    .refs li {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        margin: 0;
+        background-size: 280px auto;
+      }
+
+      .container {
+        padding: 4px 16px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <p class="nav">
+    <a href="../ja.html">トップ</a> ｜ <a href="index.html">雑記帳</a>
+  </p>
+
+  <h1>CRF とその受容体</h1>
+
+  <p class="small">雑記帳。2026年10月</p>
+
+  <p>
+    糞のグルココルチコイド代謝物を測るとき（<a href="fecal.html">糞からホルモンを測る</a>）、見ているのはストレス反応の流れのいちばん下流である。その流れのいちばん上にいるのが CRF（corticotropin-releasing factor）で、CRF は下垂体に命令を出すだけでなく、脳のあちこちで神経伝達物質としても働いている。仲間のペプチドが四つ、受容体が二つあって、「どの受容体がどこで何をしているか」はいまでも議論が続いている。優劣の研究とも、思っていたよりずっと近い話なので、論文を読みながら整理しておく。
+  </p>
+
+  <p>目次</p>
+  <ol>
+    <li><a href="#s1">CRF とは</a></li>
+    <li><a href="#s2">リガンドは四つ、受容体は二つ</a></li>
+    <li><a href="#s3">古い起源</a></li>
+    <li><a href="#s4">脳のどこにあるか</a></li>
+    <li><a href="#s5">「CRF<sub>1</sub> はアクセル、CRF<sub>2</sub> はブレーキ」は本当か</a></li>
+    <li><a href="#s6">雌雄で違う</a></li>
+    <li><a href="#s7">優劣とのつながり</a></li>
+    <li><a href="#books">読むならこれ</a></li>
+  </ol>
+
+  <h2 id="s1">1. CRF とは</h2>
+
+  <p>
+    CRF は 41 個のアミノ酸からなるペプチドで、1981 年に Salk 研究所の Vale らがヒツジの視床下部から取り出して構造を決めた（Matsoukas et al. 2024）。ヒトとラットの CRF は配列がまったく同じである。CRH（corticotropin-releasing hormone）とも呼ばれる。
+  </p>
+
+  <p>
+    いちばんよく知られた仕事は、HPA 軸（視床下部–下垂体–副腎軸）の入口である。ストレスがかかると、視床下部の室傍核（PVN）の小細胞性ニューロンで作られた CRF が正中隆起から下垂体門脈に放出される。CRF は下垂体前葉から副腎皮質刺激ホルモン（ACTH）を出させ、ACTH が副腎皮質からグルココルチコイド（ヒトや魚ではコルチゾール、齧歯類や鳥ではコルチコステロン）を出させる。グルココルチコイドは CRF の放出を抑え返す（Vuppaladhadiam et al. 2020; Bagosi et al. 2017）。
+  </p>
+
+  <p>
+    ただ、CRF の仕事はそれだけではない。CRF は扁桃体中心核（CeA）、分界条床核（BNST）、後脳などにもあって、ここでは下垂体を介さずに、神経伝達物質として行動に直接効く（Vuppaladhadiam et al. 2020; Bagosi et al. 2017）。脳の外でも、腸、皮膚、胎盤で作られている。
+  </p>
+
+  <p>
+    室傍核の CRF が何のためにあるかについては、わかりやすい実験がある。室傍核だけで CRF の発現を RNA 干渉で落とすと、ストレスに応じた ACTH の上昇は変わったが、ふだんの ACTH の値は変わらなかった（Vuppaladhadiam et al. 2020 が引く Bhargava et al. の研究）。室傍核の CRF は、ふだんの維持より、ストレス反応を<b>始める</b>ためのものらしい。
+  </p>
+
+  <div class="note">
+    <b>名前のこと</b>：同じものが CRF とも CRH とも書かれる。受容体も、CRF<sub>1</sub>、CRF1R、CRFR1、遺伝子名では <i>CRHR1</i>（マウスでは <i>Crhr1</i>）と、論文ごとにばらばらである。このページでは、ペプチドを CRF、受容体を CRF<sub>1</sub>・CRF<sub>2</sub> と書く。
+  </div>
+
+  <h2 id="s2">2. リガンドは四つ、受容体は二つ</h2>
+
+  <p>
+    哺乳類の CRF ファミリーのペプチドは四つある。CRF と、ウロコルチン 1・2・3（Ucn1、Ucn2、Ucn3）である。Ucn1 は 1995 年に Vaughan らが見つけ、Ucn2 と Ucn3 は 2001 年に報告された。Ucn2 は stresscopin-related peptide、Ucn3 は stresscopin という別名もある（Bagosi et al. 2017）。ウロコルチンという名前は、魚の相同ペプチドのウロテンシン I（配列の 63% が同じ）とコルチコトロピンをつないだものである。哺乳類以外では、魚のウロテンシン I と、カエル（<i>Phyllomedusa sauvagei</i>）の皮膚から見つかったソーバジンが同じ仲間に入る（Matsoukas et al. 2024）。
+  </p>
+
+  <p>
+    長さは CRF が 41、Ucn1 が 40、Ucn2 と Ucn3 が 38 アミノ酸で、CRF と配列が同じなのは Ucn1 で約 45%、Ucn3 では 26% しかない（Vuppaladhadiam et al. 2020）。
+  </p>
+
+  <p>
+    受容体は CRF<sub>1</sub> と CRF<sub>2</sub> の二つで、どちらも G タンパク質共役受容体（GPCR）の B1 サブファミリーに入る。二つの受容体は全体で約 70% 似ていて、膜を貫く部分と細胞内の部分では約 80% が同じだが、リガンドをつかむ細胞外の N 末端では約 47% しか同じでない（Vuppaladhadiam et al. 2020）。どのリガンドを好むかの違いは、主にこの N 末端から来る。
+  </p>
+
+  <h3>2.1 どのリガンドがどの受容体に結合するか</h3>
+
+  <p>
+    Matsoukas et al. (2024) の表から、ヒトのペプチドの結合の強さを抜き出すと次のようになる。K<sub>i</sub> は結合の強さの指標で、<b>小さいほど強く結合する</b>。
+  </p>
+
+  <div class="table-wrap">
+    <table>
+      <tr><th>ペプチド</th><th>CRF<sub>1</sub>（K<sub>i</sub>, nM）</th><th>CRF<sub>2</sub>（K<sub>i</sub>, nM）</th><th>まとめると</th></tr>
+      <tr><td>CRF（ヒト・ラット）</td><td class="num">1.9</td><td class="num">31</td><td>CRF<sub>1</sub> を好む</td></tr>
+      <tr><td>Ucn1</td><td class="num">0.4</td><td class="num">0.3</td><td>両方に強く結合する</td></tr>
+      <tr><td>Ucn2</td><td class="num">&gt;100</td><td class="num">1.7</td><td>CRF<sub>2</sub> だけ</td></tr>
+      <tr><td>Ucn3</td><td class="num">&gt;100</td><td class="num">22</td><td>CRF<sub>2</sub> だけ</td></tr>
+    </table>
+  </div>
+
+  <p class="small">
+    数値は複数の研究から集めたもので、測り方がそろっているわけではない。マウスの Ucn3 では CRF<sub>2</sub> への K<sub>i</sub> が 5 nM になっている。
+  </p>
+
+  <p>
+    つまり、CRF<sub>2</sub> だけを動かしたければ Ucn2 や Ucn3 を使えばいいが、CRF<sub>1</sub> だけを動かす天然のペプチドはない。CRF も高い濃度では CRF<sub>2</sub> に届く。これは 5 節の実験を読むときに効いてくる。
+  </p>
+
+  <p>
+    もう一つ、CRF 結合タンパク質（CRF-BP）という可溶性のタンパク質がある。CRF や Ucn1 と強く結合して、受容体に届かないようにする（Bagosi et al. 2017; Piccin &amp; Contarino 2020）。受容体の数だけでなく、この「横取り」の量も、CRF がどれだけ効くかを左右する。
+  </p>
+
+  <p>
+    受容体には、つなぎ方の違う型（スプライスバリアント）がいくつもある。CRF<sub>1</sub> で主に働いているのは 415 アミノ酸の CRF<sub>1</sub>α である。CRF<sub>2</sub> には α、β、γ の三つがあり、γ はヒトの辺縁系でしか見つかっていない（Vuppaladhadiam et al. 2020）。
+  </p>
+
+  <h3>2.2 なぜ選り好みするのか</h3>
+
+  <p>
+    CRF ファミリーのペプチドは、二段階で受容体に結合すると考えられている（Matsoukas et al. 2024）。まずペプチドの C 末端側が受容体の細胞外の N 末端をつかむ。それで向きが決まり、次にペプチドの N 末端側が膜の中の部分（J ドメイン）に入り込んで、受容体を活性化する。
+  </p>
+
+  <p>
+    この仕組みから、いくつかのことが説明できる。
+  </p>
+
+  <ul>
+    <li>
+      <b>拮抗薬の作り方</b>：CRF の N 末端の 8 個を削ると、受容体には結合するのに活性化できない断片になる。これを改良したのが最初の拮抗薬、α-helical CRF(9–41) である（Matsoukas et al. 2024）。結合はするが鍵を回さない、という作りである。
+    </li>
+    <li>
+      <b>Ucn2 と Ucn3 が CRF<sub>2</sub> しか動かさない理由</b>：Ucn2 と Ucn3 は 11 番目がプロリンで、ここでペプチドのらせん構造が崩れ、CRF<sub>1</sub> に結合しにくくなる。また CRF と Ucn1 の 35 番目はアルギニンで、CRF<sub>1</sub> 側の負の電荷をもつ残基と組むが、Ucn2 と Ucn3 ではここがアラニンになっていて、CRF<sub>2</sub> にしか合わない（Matsoukas et al. 2024）。
+    </li>
+    <li>
+      <b>低分子の CRF<sub>1</sub> 拮抗薬</b>：antalarmin などの低分子の拮抗薬は、ペプチドとは別の場所、膜の中の部分に入り込んで、受容体を動かなくする（アロステリックな阻害）。CRF<sub>1</sub> にしか効かないのは、入口付近のアミノ酸二つ（CRF<sub>1</sub> ではヒスチジンとメチオニン）が、CRF<sub>2</sub> では別のアミノ酸に置き換わっていて、薬が入れないためと考えられている（Matsoukas et al. 2024）。
+    </li>
+  </ul>
+
+  <p>
+    CRF<sub>1</sub> 拮抗薬は、不安やうつの薬として臨床試験まで進んだが、精神疾患の薬としては実用化に届いていない（Matsoukas et al. 2024）。一方で、CRF<sub>2</sub> だけに効く低分子の拮抗薬はまだなく、研究ではペプチドの断片が使われてきた（Zorrilla et al. 2013）。この「CRF<sub>2</sub> の道具の弱さ」が、5 節の混乱の一因になっている。
+  </p>
+
+  <h2 id="s3">3. 古い起源</h2>
+
+  <p>
+    CRF ファミリーは、ストレスのために生まれたわけではないらしい。Vuppaladhadiam et al. (2020) の総説によると、ショウジョウバエには CRF やウロコルチンと相同な利尿ホルモン（DH44）があり、その受容体も CRF 受容体と近縁である。受容体の祖先は、線虫（<i>C. elegans</i>）がもつ seb-2 という GPCR にさかのぼるとされる。前駆体になるペプチドは、約 8 億年前の後生動物の祖先にまでさかのぼるかもしれない。
+  </p>
+
+  <p>
+    もともとの仕事は、体の水分の調節（浸透圧の調節と利尿）と、栄養の感知だったと考えられている。いまでもウロコルチンを脳に入れると摂食が減るし、Ucn2・Ucn3 と CRF<sub>2</sub> は血糖の調節にも関わっている（Vuppaladhadiam et al. 2020）。ストレス反応の指令役は、そのあとで乗せられた仕事ということになる。
+  </p>
+
+  <p>
+    脊椎動物では、全ゲノムの重複が何度か起きたときにペプチドも受容体も数が増え、CRF と Ucn1、そして二つの受容体は約 4 億年前の重複のあとに現れた（Vuppaladhadiam et al. 2020）。同じ総説の図のまとめでは、CRF が下垂体門脈に放出されるようになったのは肉鰭類（陸上脊椎動物につながる系統）からで、両生類ではソーバジンのようなペプチドが皮膚で作られるようになった。
+  </p>
+
+  <p>
+    どのペプチドがいちばん古いかは、同じ総説の中でも書き方が揺れている。本文ではウロテンシン I が最初に現れたとし、配列の系統樹では Ucn2 と Ucn3 が Ucn1 や CRF より古く、Ucn3 がいちばん保存されている、としている。いずれにしても、CRF そのものは比較的新しい、という点は共通している。
+  </p>
+
+  <h2 id="s4">4. 脳のどこにあるか</h2>
+
+  <h3>4.1 ペプチドの場所</h3>
+
+  <ul>
+    <li><b>CRF</b>：室傍核の小細胞性ニューロン、扁桃体中心核、分界条床核、後脳など。</li>
+    <li><b>Ucn1</b>：主に中脳の Edinger–Westphal 核と視索上核。分界条床核にもある。</li>
+    <li><b>Ucn2</b>：視床下部、脳幹、脊髄。</li>
+    <li><b>Ucn3</b>：視床下部と扁桃体。脳の外では腸と膵臓。</li>
+  </ul>
+
+  <p class="small">（いずれも Vuppaladhadiam et al. 2020 から）</p>
+
+  <h3>4.2 受容体の場所と、種による違い</h3>
+
+  <p>
+    受容体の詳しい分布図としては、Van Pett et al. (2000) がよく引かれている（Piccin &amp; Contarino 2020; Risbrough et al. 2004 など）。今回読んだ論文からわかる範囲では、CRF<sub>1</sub> と CRF<sub>2</sub> はどちらも室傍核と視索上核の、オキシトシンやバソプレシンのニューロンにあり（Piccin &amp; Contarino 2020）、海馬と分界条床核にも両方ある（Risbrough et al. 2004）。縫線核にも CRF 受容体がある（Carpenter et al. 2014）。
+  </p>
+
+  <p>
+    面白いのは、受容体の分布が、社会のあり方の違う近縁種のあいだで違うことである。
+  </p>
+
+  <ul>
+    <li>
+      <b>ハタネズミ</b>：乱婚のハタネズミは、一夫一妻のハタネズミより、側坐核の CRF<sub>1</sub> の結合部位が多く、CRF<sub>2</sub> が少ない（Piccin &amp; Contarino 2020 が引く Lim et al. の研究）。一夫一妻のプレーリーハタネズミでは、分界条床核の CRF<sub>2</sub> が雌より雄で多い（Vuppaladhadiam et al. 2020）。
+    </li>
+    <li>
+      <b>季節で変わるハタネズミ</b>：メドウハタネズミの雌は、夏はなわばりをもって単独で暮らし、冬は群れで暮らす。冬に似た短い日長で飼うと、いくつもの脳領域で CRF<sub>2</sub> が増え、CRF<sub>1</sub> が減った。外側中隔の受容体の量の個体差は、仲間と寄り添って過ごす時間と相関した（Beery et al. 2020 が引く Beery et al. 2014）。
+    </li>
+    <li>
+      <b>デバネズミ</b>：単独で暮らすケープデバネズミと、真社会性のハダカデバネズミを比べると、ハダカデバネズミでは側坐核の CRF<sub>1</sub> と、外側中隔の CRF<sub>2</sub> が少なかった。どちらの種も、外側中隔には CRF<sub>1</sub> が、側坐核には CRF<sub>2</sub> がほとんどなかった（Beery et al. 2020 が引く Coen et al. 2015）。ハダカデバネズミの群れの中では、劣位の個体ほど、脳の広い範囲で CRF<sub>1</sub> の結合が多かった（Beery et al. 2020 が引く Beery et al. 2016）。
+    </li>
+  </ul>
+
+  <p>
+    どれも相関の話で、受容体の違いが社会の違いを生んでいるのかは、まだわからない。ただ、<a href="challenge.html">チャレンジ仮説のいま</a>の 4 節で見た「進化するのは受け取り方」という話と、同じ形をしている。CRF の量そのものより、どこでどの受容体がどれだけ受け取るかが、種や個体の違いを作っているのかもしれない。
+  </p>
+
+  <h2 id="s5">5. 「CRF<sub>1</sub> はアクセル、CRF<sub>2</sub> はブレーキ」は本当か</h2>
+
+  <p>
+    教科書的な図式はこうである。CRF が CRF<sub>1</sub> を動かしてストレス反応を<b>始め</b>、ウロコルチンが CRF<sub>2</sub> を動かしてストレス反応から<b>回復させる</b>（Vuppaladhadiam et al. 2020）。CRF<sub>1</sub> は不安を強め、CRF<sub>2</sub> はそれを打ち消す方向に働く（Matsoukas et al. 2024; Bagosi et al. 2017）。
+  </p>
+
+  <p>
+    遺伝子を壊したマウスの結果は、この図式によく合う。CRF<sub>1</sub> を欠くマウスはコルチコステロンが低く、HPA 軸の反応が弱く、不安様の行動が少ない。CRF<sub>2</sub> を欠くマウスは逆に、HPA 軸がストレスに過敏で、不安様の行動が多いと報告された。ウロコルチンを三つとも欠くマウスは、ストレスからの回復がうまくいかない（Vuppaladhadiam et al. 2020）。
+  </p>
+
+  <p>
+    ところが、個別の実験を細かく見ると、この図式からはみ出す結果がいくつも出てくる。
+  </p>
+
+  <h3>5.1 驚愕反応：足し合わせと、逆向きが同時に起きる</h3>
+
+  <p>
+    大きな音に体がびくっとする驚愕反応は、恐怖や不安で大きくなる。また、本番の音の直前に小さな音（プレパルス）を鳴らすと反応が小さくなる。これをプレパルス抑制（PPI）といい、入ってくる感覚の情報で反応を調節できているかの指標になる。パニック障害や心的外傷後ストレス障害（PTSD）の患者では、この PPI が弱まっている。
+  </p>
+
+  <p>
+    Risbrough et al. (2004) はマウスで、驚愕反応の<b>大きさ</b>と<b>調節</b>を分けて調べた。
+  </p>
+
+  <ul>
+    <li>
+      CRF を脳室に入れると、驚愕反応は大きくなり、PPI は弱まった。CRF<sub>1</sub> 拮抗薬（NBI-30775）はこの両方を打ち消した。CRF<sub>1</sub> を欠くマウスでは、CRF を入れても驚愕反応は大きくならなかった。
+    </li>
+    <li>
+      ところが CRF<sub>1</sub> を欠くマウスに CRF を入れると、PPI は逆に<b>強まった</b>。CRF<sub>2</sub> だけを動かす Ucn2 や Ucn3 を入れても、PPI は強まった。Ucn3 は驚愕反応の大きさは変えなかった。
+    </li>
+  </ul>
+
+  <p>
+    著者らのまとめは、二つの受容体は驚愕反応の<b>大きさ</b>については同じ向きに（足し合わせで）働き、<b>調節</b>については逆向きに働く、というものである。CRF<sub>1</sub> は防御反応を感覚の情報で止められないように「固め」、CRF<sub>2</sub> は反応を大きく保ったまま、感覚の情報で調節できるように「柔らかく」する。危険が迫っているときに CRF<sub>1</sub> が反射を守る、と考えると筋は通る。
+  </p>
+
+  <p>
+    Risbrough et al. (2009) は、薬を入れるかわりに、本物の恐怖で同じことを調べた。電気ショックを受けた直後、同じ場所で驚愕反応が大きくなる現象（場所＝文脈への恐怖）は、CRF<sub>1</sub> を欠くマウスでは完全になくなり、CRF<sub>2</sub> を欠くマウスでは弱まった。ここでも二つの受容体は同じ向きに働いている。一方、光と音の合図をショックと結びつけた条件づけ（合図への恐怖）は、どちらを欠くマウスでも普通に起き、CRF<sub>2</sub> を欠くマウスに CRF<sub>1</sub> 拮抗薬を与えても消えなかった。CRF 受容体は、場所への恐怖には要るが、はっきりした合図への恐怖には要らない、ということになる。
+  </p>
+
+  <h3>5.2 道具を疑う：antisauvagine-30 の問題</h3>
+
+  <p>
+    CRF<sub>2</sub> の役割がはっきりしない理由の一つは、CRF<sub>2</sub> を止める道具にある。CRF<sub>2</sub> だけに効く低分子の拮抗薬はなく、ソーバジンを削ったペプチドの antisauvagine-30 が「CRF<sub>2</sub> 選択的な拮抗薬」として広く使われてきた。
+  </p>
+
+  <p>
+    Zorrilla et al. (2013) は、これを CRF<sub>2</sub> を欠くマウスで確かめた。よく使われる量（脳室に 3 nmol）の antisauvagine-30 は、電気ショックのあとのすくみ（freezing）を減らしたが、その効果は CRF<sub>2</sub> を欠くマウスでも同じように出た。CRF<sub>2</sub> がなくても効くのだから、CRF<sub>2</sub> を介した効果ではない。もう一つの CRF<sub>2</sub> 拮抗薬 astressin<sub>2</sub>-B は、同じ量ですくみを変えなかった。
+  </p>
+
+  <p>
+    文献を調べ直すと、これまでの研究で脳に入れられてきた antisauvagine-30 の濃度（局所投与の中央値で約 1 mM）は、CRF<sub>1</sub> の働きを止める濃度（IC<sub>50</sub> で 1–2 µM）より 3 桁、CRF<sub>1</sub> への結合定数より 4 桁も高かった。試験管の中では CRF<sub>2</sub> を数百倍好む薬でも、これだけ多く入れれば CRF<sub>1</sub> も止めてしまう、というのが著者らの解釈である。
+  </p>
+
+  <p>
+    実は 5.1 節の Risbrough et al. (2004) も、同じ 3 nmol の antisauvagine-30 を使っている。著者らは試験管の中の選択性を根拠に CRF<sub>2</sub> の効果と解釈していたが、Zorrilla らの結果を踏まえると、その部分は割り引いて読む必要がある。ただ、Ucn2 と Ucn3 の実験や、CRF<sub>1</sub> を欠くマウスの実験は antisauvagine-30 に頼っていないので、「CRF<sub>2</sub> を動かすと PPI が強まる」という結論そのものは残る。
+  </p>
+
+  <p>
+    Zorrilla らは、もう一つ問題を指摘している。C57BL/6J の系統に十分に戻し交配した CRF<sub>2</sub> 欠損マウスは、三つの不安の試験のどれでも不安様の行動を示さなかった。CRF<sub>2</sub> 欠損マウスが「不安が強い」という以前の報告は、129 系統と C57BL/6J 系統が混ざったマウスで調べたものだった。遺伝子を壊すときに使った 129 系統の DNA が、壊した遺伝子の近くに一緒に残るので、欠損マウスだけが 129 系統の性質（もともと不安様の行動が多い）を余分にもってしまう。著者らは、CRF<sub>2</sub> はふだんは静かで、強いストレスや長く続くストレスのときに初めて、CRF<sub>1</sub> に対抗して動員されるのではないか、と考えている。
+  </p>
+
+  <h3>5.3 社会行動では「逆」にならない</h3>
+
+  <p>
+    Bagosi et al. (2017) は、雄のマウスの脳室に CRF と三つのウロコルチンを入れ、3 チャンバー試験で知らない雄への近づき方を調べた。
+  </p>
+
+  <ul>
+    <li><b>CRF</b>：知らない雄の部屋に入る回数も、そばにいる時間も減った。CRF<sub>1</sub> 拮抗薬の antalarmin で打ち消され、CRF<sub>2</sub> 拮抗薬の astressin<sub>2</sub>-B では打ち消されなかった。歩き回る量は変わらなかった。</li>
+    <li><b>Ucn1</b>：知らない雄の部屋に入る回数が増えた。そばにいる時間は変わらなかった。</li>
+    <li><b>Ucn2 と Ucn3</b>：入る回数は変わらなかったが、知らない雄のそばにいる時間が<b>減った</b>。</li>
+  </ul>
+
+  <p>
+    CRF<sub>2</sub> だけを動かす Ucn2 と Ucn3 が、CRF と同じく社会的な接近を減らしたことになる。著者らも、二つの受容体の効果は「対照的だが、必ずしも逆ではない」と書いている。なお、Ucn1 の効果をどちらの拮抗薬が打ち消したかについては、要旨では astressin<sub>2</sub>-B だけと書かれているのに、本文では両方で弱まったと書かれていて、はっきりしない。雄だけ、各群 6〜10 匹、脳室への投与という条件の結果でもある。
+  </p>
+
+  <p>
+    同じ論文が引いている研究では、扁桃体内側核の Ucn3 と CRF<sub>2</sub> が、新しい相手への興味を高めることが示されている。また、扁桃体内側核の Ucn3 ニューロンの活動を抑えると、ふだんの社会行動は増えたが、群れの順位構造は変わらなかった（Bagosi et al. 2017 が引く Shemesh et al. 2016）。
+  </p>
+
+  <p>
+    5 節全体をまとめると、CRF<sub>1</sub> と CRF<sub>2</sub> の関係は「アクセルとブレーキ」の一言では片づかない。同じ行動でも大きさと調節で関係が変わり、脳の領域ごとにも違う。中隔や縫線核の CRF<sub>2</sub> を止めると一貫して不安様の行動が増えるのに、脳全体で止めると結果がばらつく、という指摘もある（Risbrough et al. 2009）。CRF<sub>2</sub> を動かす薬は歩き回る量や毛づくろいも変えるので、近づくか避けるかで不安を測る試験では、それが結果を乱しているかもしれない（Risbrough et al. 2009）。Bagosi らが引く言葉を借りれば、受容体の役割は「単純な二元論ではなく、どの脳領域のどのニューロンが動くかによる」。
+  </p>
+
+  <h2 id="s6">6. 雌雄で違う</h2>
+
+  <p>
+    CRF の研究も、長いあいだ雄ばかりで行われてきた（Vuppaladhadiam et al. 2020）。雌を入れると、結果が逆になることがある。
+  </p>
+
+  <p>
+    Piccin &amp; Contarino (2020) は、CRF<sub>2</sub> を欠くマウスを雌雄とも 3 チャンバー試験にかけた。CRF<sub>2</sub> を欠くと、雌では知らない相手への接近が<b>減り</b>、雄では<b>増えた</b>。社会的なにおいへの好みは雌雄とも変わらなかったので、においを感じ取れなくなったせいではない。さらに CRF<sub>1</sub> を好む拮抗薬の antalarmin を飲ませると、もともと社会的でなかった群（雌の欠損マウスと、雄の野生型）では接近が<b>増え</b>、もともと社会的だった群（雌の野生型と、雄の欠損マウス）では接近が<b>減った</b>。薬の効き方は、遺伝子型よりも、その群がもともと社会的かどうかで決まっていた。
+  </p>
+
+  <p>
+    気をつける点もある。雄の野生型は、自動で測った指標（籠の近くにいた時間）では知らない相手を好まなかったが、人が手で数えた指標（鼻を籠に入れていた時間）では好んでいた。どの指標を使うかで、「社会的かどうか」の判定が変わりうる。また、このマウスは 129 系統と C57BL/6J 系統が混ざった背景で作られていて、5.2 節の Zorrilla らの指摘がここにも当てはまるかもしれない。
+  </p>
+
+  <p>
+    総説（Vuppaladhadiam et al. 2020）には、ほかにも雌雄の違いがたくさん挙がっている。
+  </p>
+
+  <ul>
+    <li>CRF<sub>1</sub> と CRF<sub>2</sub> を両方欠くマウスでは、雌は不安様の行動が減り、雄は増えた。</li>
+    <li>Ucn2 を欠くと、雌でだけ ACTH とコルチコステロンの日内リズムが変わり、うつ様の行動が出た。</li>
+    <li>大人のマウスの室傍核では、雄のほうが CRF<sub>1</sub> が多い。ラットの分界条床核では、雄のほうが CRF<sub>2</sub> の結合が多い。</li>
+    <li>エストロゲンは室傍核の CRF の発現を高め、アンドロゲンは下げる。アンドロゲンは辺縁系と外側中隔の CRF<sub>2</sub> を増やす。四つのペプチドと二つの受容体の遺伝子には、どれも性ホルモンが働きかける配列がある。</li>
+    <li>泳がせるストレスのあと、雄のラットの青斑核では CRF<sub>1</sub> が細胞の中に取り込まれた（効きにくくなった）が、雌ではむしろ細胞の表面に残っていた（Bangasser et al. 2010 の研究）。</li>
+  </ul>
+
+  <p>
+    行動でも同じことが見られる。プレーリーハタネズミでは、短い水泳のストレスは、雌ではつがいの絆ができるのを<b>妨げ</b>、雄では<b>早めた</b>。脳への CRF の投与も、雄ではつがいの絆を作りやすくした（Beery et al. 2020）。外から見た行動は同じでも、その下の仕組みや、経験の効き方が雌雄で違う。こういうものを「隠れた性差」（latent sex differences）と呼ぶ（Beery et al. 2020）。
+  </p>
+
+  <h2 id="s7">7. 優劣とのつながり</h2>
+
+  <h3>7.1 地位が上がると、15 分で CRF 系が変わる</h3>
+
+  <p>
+    アフリカのカワスズメ科の魚 <i>Astatotilapia burtoni</i> の雄は、なわばりをもつ優位な雄と、もたない劣位な雄に分かれる。劣位の雄は色がくすみ、繁殖もしない。ところが、優位な雄がいなくなると、劣位の雄は数分のうちに色を変え、なわばり行動を始め、繁殖できる体に変わる。
+  </p>
+
+  <p>
+    Carpenter et al. (2014) は、群れから優位な雄を取り除いて劣位の雄に地位を上げる機会を与え、優位の行動を始めてから 15 分後に、脳の CRF 系の遺伝子発現を測った（劣位 16 匹、上昇中 14 匹、優位 13 匹）。
+  </p>
+
+  <ul>
+    <li><b>血中コルチゾール</b>：上昇中の雄は、劣位のままの雄より低く、優位の雄と変わらなかった。</li>
+    <li><b>視索前野</b>（GnRH1 ニューロンがある場所）：CRF<sub>1</sub> の mRNA が、劣位の雄より低かった。</li>
+    <li><b>下垂体</b>：CRF と CRF<sub>1</sub> の mRNA が低かった。</li>
+    <li><b>腹側終脳の Vc/Vl</b>（CRF ニューロンがある場所）：CRF<sub>1</sub> と CRF<sub>2</sub> の両方の mRNA が低かった。</li>
+    <li><b>縫線核</b>（セロトニンを作る場所）：CRF の mRNA は低く、CRF<sub>1</sub> の mRNA は逆に<b>高かった</b>。</li>
+  </ul>
+
+  <p>
+    著者らの仮説は、劣位の雄では CRF が繁殖の軸（GnRH1 ニューロン）にブレーキをかけていて、地位が上がる機会が来るとそのブレーキが素早く外れる、というものである。<a href="challenge.html">チャレンジ仮説のいま</a>の 2.1 節では、GnIH という別のブレーキが社会的な出来事で外れたり踏まれたりする話を書いた。CRF もまた、社会の情報を生殖の軸につなぐブレーキの候補ということになる。
+  </p>
+
+  <p>
+    ただし、測ったのは mRNA で、タンパク質や受容体の働きそのものではない。著者ら自身も、この変化が地位の上昇を起こしたのか、地位の上昇の結果なのかは区別できない、と書いている。
+  </p>
+
+  <p>
+    マウスでも似た現象がある。群れからいちばん優位な雄を取り除くと、数分のうちに群れ全体の攻撃が増え、二番目の雄が最も攻撃的になって、やがて新しい一番手になる（Beery et al. 2020 が引く Williamson et al. 2017）。
+  </p>
+
+  <h3>7.2 速く上がって、速く戻る</h3>
+
+  <p>
+    Korzan &amp; Summers (2021) の総説は、優劣とストレスの関係を、ストレス反応の<b>量</b>ではなく<b>速さ</b>（celerity）で見直している。
+  </p>
+
+  <p>
+    昔の研究では、劣位の個体はグルココルチコイドが高く、優位の個体は高くない、とされることが多かった。ところがグルココルチコイドの分泌が 1 時間ほどの周期で脈打っていて、ストレスでその頻度が上がることがわかり、反応はもっと速く立ち上がって速く消えうることが見えてきた。ニジマスやアノールトカゲ（<i>Anolis carolinensis</i>）の研究では、優位になる個体ほど、グルココルチコイドや脳のモノアミンの反応が<b>速く立ち上がり、速く元に戻った</b>。劣位の個体は、反応も回復も遅かった。ヒヒでも、優位の雄はふだんのコルチゾールは低いが、ストレスがかかると速く大きく上がる（Sapolsky の研究）。
+  </p>
+
+  <p>
+    アノールトカゲでは、闘っているときに目の後ろの皮膚が黒くなる（eyespot）までの速さで、どちらが優位になるかが予測できる。優位になる雄は、闘いと関係のない場面でも、餌や雌に反応するまでが速かった。著者らは、ストレス反応を素早く立ち上げて素早く終わらせられる個体ほど、闘いのあと餌や求愛やなわばりの防衛に早く戻れるので、優位になりやすい、と考えている。
+  </p>
+
+  <p>
+    これは著者らの研究室の仕事を中心にした総説で、CRF そのものは、順位に関わる多くの神経伝達物質の一つとして挙げられているにすぎない。それでも、「どれだけ高いか」から「どれだけ速く上がって戻るか」に見方を移す、という提案は、測り方を考えるうえで大事だと思う（7.5 節）。
+  </p>
+
+  <h3>7.3 逃げるか、とどまるか</h3>
+
+  <p>
+    Robertson et al. (2015) は、Blanchard の Visible Burrow System（VBS、後述）に触発されて、Stress-Alternatives Model（SAM）という実験系を作った。楕円形の場に、小さい個体と大きくて攻撃的な同種の個体を入れる。場の両端には小さい個体しか通れない逃げ道がある。小さい個体は、逃げ道を使って逃げるか、とどまって服従するかを選ぶ。
+  </p>
+
+  <ul>
+    <li>
+      ニジマスでも、ラットでも、マウスでも、ほぼ半分が逃げ、半分がとどまった（9 つの実験の平均）。どちらを選ぶかは、受けた攻撃の強さでは決まらなかった。実験前の不安の試験（高架式十字迷路）でも、両者に差はなかった。
+    </li>
+    <li>
+      マウスでは、とどまって服従した個体の血中コルチコステロンがいちばん高く、扁桃体中心核の神経ペプチド S や BDNF の発現も高かった。著者らは、逃げ場のない場での脱出、攻撃からの脱出、攻撃への服従の順に不安が強くなる「不安の勾配」を考えている。
+    </li>
+    <li>
+      <b>CRF<sub>1</sub> 拮抗薬の antalarmin</b> を与えると、それまで服従していたマウスの 40% が逃げるようになった。ニジマスでは 3 分の 2 が逃げるようになった。逆に、不安を強める薬（α<sub>2</sub> 受容体の拮抗薬ヨヒンビン）は、それまで逃げていたマウスの 67% を服従させた。回し車で運動させると逃げるまでの時間は短くなったが、服従していた個体が逃げるようにはならなかった。
+    </li>
+    <li>
+      ニジマスでは、日がたつにつれて、大きい魚に見られていないときにだけ逃げるようになった。
+    </li>
+  </ul>
+
+  <p>
+    Korzan &amp; Summers (2021) は、逃げる個体を能動的でストレスに強い型、とどまる個体を受け身でストレスに弱い型と位置づけている。とどまる個体のほうが、恐怖の条件づけをより強く覚えた。
+  </p>
+
+  <p>
+    <a href="definition.html">優劣とは何か</a>では、優劣の関係を決めるのは劣位の側の行動だ、と書いた。SAM の結果は、その劣位の側の「逃げるか、とどまるか」という選択が、CRF<sub>1</sub> の信号で動きうることを示している。劣位の個体の振る舞いを、強さの差だけでなく、ストレスの処理のしかたからも見る必要がありそうである。
+  </p>
+
+  <h3>7.4 群れで飼うと、話が変わる</h3>
+
+  <p>
+    社会的ストレスの研究の多くは、二匹を対面させて、片方を一方的に負けさせる（社会的敗北）やり方で行われてきた。Beery et al. (2020) は、このやり方は攻撃が自然よりずっと激しく、逃げ場もないので、野生での社会的ストレスとはかけ離れている、と指摘する。そのかわりに、Visible Burrow System（広い場と巣穴を通路でつないだ飼育装置）のような、群れで暮らせる飼い方での研究をまとめている。
+  </p>
+
+  <ul>
+    <li>
+      <b>劣位ほど高い、とは限らない</b>：ラットの VBS では、劣位の雄はふだんのコルチコステロンが高く、コルチコステロン結合グロブリン（CBG）が低い（つまり働く遊離型が多い）ことが多い。ただ、すべての研究でそうなるわけではない。マウスでは、劣位の雄のコルチコステロンが高かったのは、一番手がとても専制的な群れだけだった。霊長類でも、順位が低いとストレス反応が高いのは、劣位の個体が多くの攻撃を受け、社会的な支えが少ない種だけだという（Beery et al. 2020 が引く Abbott et al. 2003）。
+    </li>
+    <li>
+      <b>CRF の発現は意外と変わらない</b>：VBS のラットで、優位と劣位の雄の室傍核の CRF と AVP の mRNA に差はなかった。ただし、劣位の中でもいちばん下の個体（拘束してもコルチコステロンが上がらなくなった「無反応」の個体）では、室傍核の CRF が大きく減っていた。
+    </li>
+    <li>
+      <b>差が出るのは群れができるとき</b>：コルチコステロンの差がいちばん大きいのは群れができてしばらくのあいだで、順位が落ち着くと下がってくる。優位の雄を入れ替えるなど、群れを不安定にすると、全員のストレスが上がる。
+    </li>
+    <li>
+      <b>デバネズミ</b>：ハダカデバネズミでは、安定した群れの中で、コルチゾールと順位に関係は見られなかった。女王がいなくなって次の女王の座を争うときには、コルチゾールが上がった。
+    </li>
+  </ul>
+
+  <p>
+    「劣位はストレスが高い」は、種や、群れの大きさや、一番手の性格や、群れが安定しているかどうかで変わる、条件つきの話である。7.2 節の Korzan &amp; Summers の見方と合わせると、平均の値を順位どうしで比べるだけでは、見落とすことが多そうである。
+  </p>
+
+  <h3>7.5 測るなら何を</h3>
+
+  <p>
+    ここまでを、ホルモンを測る側から見直しておく。
+  </p>
+
+  <ul>
+    <li>
+      <b>CRF は糞では測れない</b>：糞で測れるのは、流れのいちばん下流のグルココルチコイドの代謝物だけである（<a href="fecal.html">糞からホルモンを測る</a>）。CRF の量も、どの受容体がどれだけ働いているかも、糞からは見えない。7.4 節のように、室傍核の CRF に差がなくても、受容体の分布（4.2 節）や CRF-BP の量（2.1 節）で効き方が違うことはありうる。
+    </li>
+    <li>
+      <b>速さは糞では見えにくい</b>：糞の代謝物は、数時間ぶんの分泌をまとめた値になる。7.2 節の「速く上がって速く戻る」の違いは、まとめた値では消えてしまうかもしれない。速さを見るなら、時間を追った採取が要る。
+    </li>
+    <li>
+      <b>いつ測るか</b>：群れができるとき、順位が入れ替わるとき（7.1 節、7.4 節）に差が大きくなるなら、安定した群れで一度だけ測っても差が出ないのは当然かもしれない。
+    </li>
+    <li>
+      <b>雌雄を分けて</b>：6 節のように、同じ操作で雌雄の結果が逆になることがある。
+    </li>
+  </ul>
+
+  <h2 id="books">読むならこれ</h2>
+
+  <ul>
+    <li><b>Vuppaladhadiam et al. (2020)</b>：CRF ファミリーの進化、組織での分布、遺伝子を壊したマウスの表現型、雌雄の違いまで一通り。最初の一本ならこれ。</li>
+    <li><b>Matsoukas et al. (2024)</b>：ペプチドと受容体の構造。どのリガンドがどの受容体にどれだけ結合するかの表（2.1 節）はここから。</li>
+    <li><b>Risbrough et al. (2004)</b>：「足し合わせと逆向きが同時に起きる」という見方を出した論文。読むなら Zorrilla et al. (2013) と並べて。</li>
+    <li><b>Korzan &amp; Summers (2021)</b>：優劣とストレスの関係を、反応の速さから見直す総説。</li>
+    <li><b>Beery et al. (2020)</b>：群れで飼う系、ハタネズミ、デバネズミでの社会的ストレス。二匹を対面させる実験だけでは見えないことがよくわかる。</li>
+  </ul>
+
+  <h2>参考文献</h2>
+
+  <ul class="refs">
+    <li>Bagosi, Z., Karasz, G., Czébely-Lénárt, A., Csabafi, K., Jászberényi, M., &amp; Telegdy, G. (2017). The effects of CRF and urocortins on the sociability of mice. <i>Brain Research</i>, 1663, 114–122.</li>
+    <li>Beery, A. K., Holmes, M. M., Lee, W., &amp; Curley, J. P. (2020). Stress in groups: lessons from non-traditional rodent species and housing models. <i>Neuroscience &amp; Biobehavioral Reviews</i>, 113, 354–372.</li>
+    <li>Carpenter, R. E., Maruska, K. P., Becker, L., &amp; Fernald, R. D. (2014). Social opportunity rapidly regulates expression of CRF and CRF receptors in the brain during social ascent of a teleost fish, <i>Astatotilapia burtoni</i>. <i>PLoS ONE</i>, 9(5), e96632.</li>
+    <li>Korzan, W. J., &amp; Summers, C. H. (2021). Evolution of stress responses refine mechanisms of social rank. <i>Neurobiology of Stress</i>, 14, 100328.</li>
+    <li>Matsoukas, M.-T., Panagiotopoulos, V., Karageorgos, V., Chrousos, G. P., Venihaki, M., &amp; Liapakis, G. (2024). Structural and functional insights into CRF peptides and their receptors. <i>Biology</i>, 13, 120.</li>
+    <li>Piccin, A., &amp; Contarino, A. (2020). Sex-linked roles of the CRF<sub>1</sub> and the CRF<sub>2</sub> receptor in social behavior. <i>Journal of Neuroscience Research</i>. doi:10.1002/jnr.24629</li>
+    <li>Risbrough, V. B., Hauger, R. L., Roberts, A. L., Vale, W. W., &amp; Geyer, M. A. (2004). Corticotropin-releasing factor receptors CRF<sub>1</sub> and CRF<sub>2</sub> exert both additive and opposing influences on defensive startle behavior. <i>Journal of Neuroscience</i>, 24(29), 6545–6552.</li>
+    <li>Risbrough, V. B., Geyer, M. A., Hauger, R. L., Coste, S., Stenzel-Poore, M., Wurst, W., &amp; Holsboer, F. (2009). CRF<sub>1</sub> and CRF<sub>2</sub> receptors are required for potentiated startle to contextual but not discrete cues. <i>Neuropsychopharmacology</i>, 34, 1494–1503.</li>
+    <li>Robertson, J. M., Prince, M. A., Achua, J. K., Carpenter, R. E., Arendt, D. H., Smith, J. P., Summers, T. L., Summers, T. R., &amp; Summers, C. H. (2015). Nuance and behavioral cogency: how the Visible Burrow System inspired the Stress-Alternatives Model and conceptualization of the continuum of anxiety. <i>Physiology &amp; Behavior</i>, 146, 86–97.</li>
+    <li>Vuppaladhadiam, L., Ehsan, C., Akkati, M., &amp; Bhargava, A. (2020). Corticotropin-releasing factor family: a stress hormone-receptor system's emerging role in mediating sex-specific signaling. <i>Cells</i>, 9, 839.</li>
+    <li>Zorrilla, E. P., Roberts, A. J., Rivier, J. E., &amp; Koob, G. F. (2013). Anxiolytic-like effects of antisauvagine-30 in mice are not mediated by CRF<sub>2</sub> receptors. <i>PLoS ONE</i>, 8(8), e63942.</li>
+  </ul>
+
+  <hr>
+
+  <p class="small">
+    <a href="index.html">雑記帳の一覧へ</a> ｜ <a href="../ja.html">トップへ戻る</a>
+  </p>
+
+</div>
+</body>
+</html>
