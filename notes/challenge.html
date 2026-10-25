@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>チャレンジ仮説のいま / 青田伊莉安</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["\\(", "\\)"]], displayMath: [["\\[", "\\]"]] }
+    };
+  </script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 20px;
+      font-family: "MS PGothic", "ＭＳ Ｐゴシック", sans-serif;
+      font-size: 15px;
+      line-height: 1.8;
+      color: #000;
+
+      background-color: #fff;
+      background-image: url("../aota-bg.png");
+      background-repeat: repeat;
+      background-size: 360px auto;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 4px 20px 10px;
+      background-color: rgba(255, 255, 255, 0.92);
+    }
+
+    h1 {
+      font-size: 24px;
+      border-bottom: 1px solid #000;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 32px;
+      border-bottom: 1px solid #999;
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-top: 22px;
+    }
+
+    a {
+      color: #0000ee;
+      text-decoration: underline;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    ul, ol {
+      padding-left: 22px;
+    }
+
+    mjx-container[display="true"] {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .nav {
+      text-align: right;
+      font-size: 13px;
+    }
+
+    .small {
+      font-size: 13px;
+      color: #555;
+    }
+
+    .note {
+      border: 1px dashed #999;
+      padding: 6px 12px;
+      margin: 16px 0;
+      font-size: 14px;
+    }
+
+    .refs li {
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        margin: 0;
+        background-size: 280px auto;
+      }
+
+      .container {
+        padding: 4px 16px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+<div class="container">
+
+  <p class="nav">
+    <a href="../ja.html">トップ</a> ｜ <a href="index.html">雑記帳</a>
+  </p>
+
+  <h1>チャレンジ仮説のいま</h1>
+
+  <p class="small">雑記帳。2026年10月</p>
+
+  <p>
+    「チャレンジ仮説」は、「闘うとテストステロンが上がる」という一文で紹介されることがある。
+    でも提唱から 30 年以上たって、中身はかなり変わってきている。
+    支持しない結果もたくさん出て、血中のホルモン濃度だけを見る考え方から、組織の感受性や脳の中でのホルモン合成へと、関心が移ってきた。
+    優劣の研究（<a href="definition.html">優劣とは何か</a>）とホルモンの測定（<a href="fecal.html">糞からホルモンを測る</a>）のあいだをつなぐ話として、その流れを整理しておく。
+  </p>
+
+  <h2>1. 始まり：野外内分泌学から</h2>
+
+  <p>
+    1970 年代に血中のホルモンを正確に測れるようになり、野外で暮らす動物からも試料を取れるようになった。
+    Wingfield (2017) の回想によれば、そこでわかったのは、野外の動物のホルモンの動きが、飼育下の同じ仲間とはまるで違うということだった。
+    飼育下では、環境や他個体からの刺激がないことが大きな交絡になっていた。
+  </p>
+
+  <p>
+    ウタスズメの野外実験で、なわばりや雌をめぐる雄どうしの争いが起きて社会が不安定になると、血中のテストステロンが上がることが繰り返し確かめられた。
+    これをもとに Wingfield et al. (1990) がまとめたのがチャレンジ仮説で、要点は次の四つである。
+  </p>
+
+  <ol>
+    <li>繁殖期の基礎的な濃度の黄体形成ホルモンやテストステロンは、繁殖器官の発達と維持を担う。</li>
+    <li>その基礎値を超える大きな上昇は、なわばりをめぐる攻撃と相関し、社会が不安定なときにだけ起きる。</li>
+    <li>地位や雌をめぐる雄どうしのやりとりは、テストステロンの分泌を上げる。</li>
+    <li>子育てなどの「コスト」を払うには、テストステロンが下がる必要がある。</li>
+  </ol>
+
+  <p>
+    つまり、テストステロンの季節変化や個体差は、雄どうしの競争（上げる）と子育て（下げる）の兼ね合いで決まる、という枠組みである。
+  </p>
+
+  <h3>1.1 三つの水準</h3>
+
+  <p>
+    のちに Wingfield et al. (2020) は、ホルモン濃度を三つの水準に分けて整理している。
+  </p>
+
+  <ul>
+    <li><b>水準 A</b>：体の基本的な維持に要る基礎値。これを下回ると体の調節が破綻する。</li>
+    <li><b>水準 B</b>：季節ごとの体や行動の変化、たとえば繁殖期の準備を支える範囲。</li>
+    <li><b>水準 C</b>：社会的な出会いや悪天候、捕食者などの「挑戦」に応じて、一時的に上がるいちばん高い水準。</li>
+  </ul>
+
+  <p>
+    チャレンジ仮説が問題にしているのは、この B から C への上がり方である。
+  </p>
+
+  <h2>2. 30 年たって：支持しない結果も多かった</h2>
+
+  <p>
+    仮説はその後、あらゆる脊椎動物の群と一部の無脊椎動物で検証された。
+    提唱者自身が、支持した実験もあったが、支持しなかった実験も多かった、と書いている（Wingfield et al. 2020）。
+  </p>
+
+  <p>
+    特に問題になったのは、仮説が生まれた鳥そのものである。
+    なわばりに偽の侵入者（剥製や録音した歌）を置く「模擬侵入実験」をしても、多くの鳥の種ではテストステロンがほとんど上がらなかった（Rosvall et al. 2020 が引く Goymann et al. 2019）。
+  </p>
+
+  <p>
+    そのうえで Wingfield et al. (2020) は、仮説を捨てるのではなく広げる方向を示している。
+    ホルモンの分泌の調節だけでなく、血液中での運ばれ方や、標的となる細胞が自分の感受性を他の組織とは独立に変える仕組みまで含めて考える、という方向である。
+    同じ濃度のホルモンに組織ごとに違う反応が出るのは、この最後の仕組みで説明できるかもしれない。
+    質量分析で、脳の特定の部位の複数のステロイドを同時に測れるようになってきたことも、この方向を後押ししている。
+  </p>
+
+  <h3>2.1 社会の情報はどうやって生殖ホルモンに届くのか：GnIH</h3>
+
+  <p>
+    Wingfield et al. (2020) は、社会的なやりとりがどうやって視床下部の生殖腺刺激ホルモン放出ホルモン（GnRH）や、
+    生殖腺刺激ホルモン放出抑制ホルモン（GnIH）の放出につながるのかは、まだ残された問題だと書いている。
+    その GnIH の側を整理したのが Tobari et al. (2022) の総説である。
+  </p>
+
+  <p>
+    GnIH は 2000 年にウズラの視床下部から見つかった神経ペプチドで、生殖腺刺激ホルモンの分泌を抑えるはたらきから名づけられた。
+    GnRH の合成と放出も抑えるので、生殖ホルモンの流れ（視床下部–下垂体–生殖腺軸）の上流にあるブレーキと考えられている。
+    そしてこの GnIH が、社会的な刺激に反応することがわかってきた。
+  </p>
+
+  <ul>
+    <li>
+      <b>マウスの闘争</b>：闘ったあとのマウスでは、勝者でも敗者でも、活性化している GnIH ニューロンの割合が減っていた。
+      他個体と一緒にいただけの対照では減らなかったので、社会的な接触一般ではなく、攻撃的なやりとりそのものの効果だと考えられる。
+      勝者では、GnIH ニューロンの活性が高いほど、攻撃を始めるまでの時間が長かった。
+    </li>
+    <li>
+      <b>ウズラの雄が雌を見る</b>：ウズラの雄は、雌の姿を見ると一時的に血中のテストステロンが下がる。
+      雌を見せた雄では視床下部の GnIH の発現が増え、黄体形成ホルモンが下がっていた。雄を見せたときには増えなかった。
+    </li>
+  </ul>
+
+  <p>
+    つまり、ブレーキ役の GnIH が外し方や踏み方を変えることで、社会的な出来事が生殖ホルモンに届いている可能性がある。
+    「闘いでテストステロンが上がる」を、上げる側だけでなく、ブレーキを緩める側からも見る視点である。
+  </p>
+
+  <h2>3. 分類群で違う</h2>
+
+  <p>
+    Moore et al. (2020) は、魚類・両生類・爬虫類・哺乳類で、雄からの挑戦によって雄の血中アンドロゲンが上がるかを調べた研究をメタ分析した。
+  </p>
+
+  <ul>
+    <li>
+      <b>硬骨魚</b>：よく上がる。11-ケトテストステロンでは 20 件中 16 件が正の効果で、そのうち 10 件は 95% 信頼区間が 0 をまたがなかった。
+      テストステロンでは 13 件すべてが正の効果で、7 件で信頼区間が 0 をまたがなかった。
+    </li>
+    <li>
+      <b>哺乳類</b>：12 件中 10 件が正の効果だったが、信頼区間が 0 をまたがなかったのは 2 種だけだった。
+    </li>
+    <li><b>両生類・爬虫類</b>：結果はまちまちだった。</li>
+  </ul>
+
+  <p>
+    なぜ魚だけ違うのか。Moore らの説明はこうである。
+    雄が子育てをする魚では、雌は雄がすでに守っている巣を見て雄を選ぶ。巣を守ること（攻撃）と、子の世話と、交尾が同じ場所で両立するので、
+    テストステロンを下げて子育てに回る必要がない。むしろアンドロゲンが三つの行動すべてを後押しする役に回った、というわけである。
+    もとの仮説の「競争と子育ての兼ね合い」は、その兼ね合いが実際にある種でだけ成り立つ、ということになる。
+  </p>
+
+  <h2>4. 血中の濃度から、組織の感受性へ</h2>
+
+  <h3>4.1 進化するのは受け取り方</h3>
+
+  <p>
+    Fuxjager &amp; Schuppe (2018) は、「進化的潜在性仮説」という考え方を紹介している。
+    アンドロゲンが効く仕組み（受容体、ホルモンを変換する酵素、遺伝子の転写を上げ下げする補助因子など）は、
+    それぞれ独立に、しかも組織ごとに進化しうる、という仮説である。
+    そうだとすれば、近縁な種どうしでも、同じテストステロンがまったく違う行動を引き起こしうる。
+    種や個体の違いを説明するのに、血中の濃度ばかり見ていても足りない、ということになる。
+  </p>
+
+  <h3>4.2 雌から見たチャレンジ仮説</h3>
+
+  <p>
+    チャレンジ仮説はもともと雄の話だったが、雌どうしの競争も自然界ではありふれている。
+    Rosvall et al. (2020) は、雌の哺乳類・鳥・トカゲ・魚の研究を整理して、仮説の多くの部分が雌でも支持されると結論している。
+    雌も繁殖可能な時期以外にテストステロンを出していて、その量は種のあいだでも種の中でも違う。
+  </p>
+
+  <p>
+    なかでも面白いのは、「競争でテストステロンが上がる」という予測は、
+    一回きりの急な挑戦（模擬侵入実験など）よりも、<b>優劣順位のように、自然で積み重なったやりとり</b>のほうでよく支持される、という指摘である。
+    逆向きの「テストステロンが攻撃を増やす」という予測も、長く続く操作のほうで支持されやすかった。
+    さらに、攻撃的な雌のツバメ類（ミドリツバメ）の例で、血中の濃度だけでなく、組織の中でテストステロンがどう処理されるかが行動の違いに効いている可能性を示している。
+  </p>
+
+  <h2>5. 繁殖期の外の攻撃：DHEA と脳の中のステロイド</h2>
+
+  <p>
+    従来の考え方では、脳は精巣で作られたテストステロンを受け取って攻撃を調節する。
+    ところが、繁殖期の外でも激しく攻撃する動物がいる。
+  </p>
+
+  <p>
+    Soma et al. (2015) の総説によれば、ウタスズメの一部の集団では、雄は春の繁殖期だけでなく、秋から冬の非繁殖期にもなわばりを強く守る。
+    このとき精巣は完全に退縮していて（長さ 1 mm 以下）、血中のテストステロンはほとんど検出できない。
+    非繁殖期の雄を去勢しても、秋のなわばり攻撃は変わらなかった。
+    一方、テストステロンをエストラジオールに変える酵素（アロマターゼ）の阻害剤を与えると、非繁殖期の攻撃は減った。
+  </p>
+
+  <p>
+    つまり非繁殖期には、精巣ではなく、副腎などから出る DHEA（デヒドロエピアンドロステロン）を、脳が自分で活性のあるアンドロゲンやエストロゲンに変えて使っている、と考えられている。
+    血中のテストステロンを高く保つことのコストを、非繁殖期に避ける仕組みとも解釈できる。DHEA は、テストステロンと違って免疫の働きを抑えない。
+    メラトニンのような季節の信号が、仕組みの切り替えに関わっている可能性もある。
+    ハムスターのような齧歯類でも、副腎の DHEA と脳の中でのステロイド合成が攻撃に関わることが調べられている。
+  </p>
+
+  <h2>6. ホルモンの先：攻撃の神経回路</h2>
+
+  <p>
+    ホルモンが最終的に働きかけるのは脳の回路である。Lischinsky &amp; Lin (2020) は、齧歯類・霊長類・鳴禽類の研究をまとめて、
+    種を越えて保存された「中核的な攻撃回路」を提案している。
+    扁桃体内側核（MeA）、分界条床核（BNST）、視床下部腹内側核の腹外側部（VMHvl）、乳頭体前核腹側部（PMv）という、
+    皮質より下の四つの領域が互いにつながった回路で、その活動が攻撃への覚醒の高さと攻撃の起こりやすさを決める、という考え方である。
+    マウスでは、VMHvl の中でもエストロゲン受容体 α（Esr1）をもつ細胞を活性化すると、それに合わせて攻撃が起きる。
+    テストステロンが脳の中でエストラジオールに変えられて効くこと（5 節）を考えると、ホルモンの研究と神経回路の研究はここで合流する。
+  </p>
+
+  <h2>7. その先：二重ホルモン仮説</h2>
+
+  <p>
+    チャレンジ仮説が予測する「テストステロンと地位を求める行動の関係」は、特にヒトの研究で、結果が一貫しなかった。
+    その食い違いを説明しようとして出てきたのが、<b>二重ホルモン仮説</b>である（Knight et al. 2020）。
+    テストステロンが地位を求める行動とどう関係するかは、もう一つのホルモン、ストレスホルモンのコルチゾールの量しだいで変わる、という仮説である。
+  </p>
+
+  <p>
+    Mehta &amp; Josephs (2010) は、大学生の唾液のテストステロンとコルチゾールを測った二つの研究で、この仮説を正式に提案した。
+    一つ目はリーダーを決める課題での振る舞い（自信、決断の速さ、リーダーらしく見えるか）、
+    二つ目は負けたあとに同じ相手に再戦を挑むかどうか、を調べている。
+    どちらでも、テストステロンが高いほど支配的に振る舞ったり再戦を挑んだりしたのは、コルチゾールが<b>低い</b>人だけだった。
+  </p>
+
+  <p>
+    その後の評価は割れている。
+  </p>
+
+  <ul>
+    <li>
+      <b>メタ分析</b>：33 研究・49 の効果をまとめたメタ分析では、仮説に合う、小さいが有意な交互作用が見つかった。
+      ただし効果の向きや大きさは研究ごとにかなりばらついていた。
+      攻撃などの個別の行動より、群れの中の実際の順位のような地位そのものの指標で、また女性より男性で、支持が強い傾向があった（Knight et al. 2020 が引く Dekkers et al. 2019）。
+    </li>
+    <li>
+      <b>批判</b>：Grebe et al. (2019) は、発表済みの研究の結果の分布（p 曲線）から、それらの研究が本当の効果を検出できる力（検出力）は平均 16% しかないと推定した。
+      さらに、もともと別の目的で集めた自分たちの 7 つの研究（計 718 人）のデータを使って「お蔵入り」の検証をしたところ、
+      地位を求める性格特性について、テストステロンとコルチゾールの頑健な交互作用は見つからなかった。
+    </li>
+  </ul>
+
+  <p>
+    「一つのホルモンで説明できないなら、二つ目のホルモンとの組み合わせで」という発想自体は自然だが、
+    小さい標本で交互作用を探すと、偶然の結果を拾いやすい。
+    チャレンジ仮説の 30 年と同じく、仮説が出て、広がって、検証されて揺らぐ、という過程の途中にあると言える。
+    ここでも、支持が強いのは「群れの中の実際の順位」の指標だったという点は、優劣の研究から見ると興味深い。
+  </p>
+
+  <h2>8. 優劣の研究とどうつながるか</h2>
+
+  <p>
+    ここまでの流れを、優劣の研究から見直すと、いくつか気になることがある。
+  </p>
+
+  <ul>
+    <li>
+      <b>一回の挑戦か、積み重なった関係か</b>：Rosvall et al. (2020) が指摘したように、ホルモンの反応は、模擬侵入のような一回きりの挑戦より、
+      優劣順位のような積み重なった関係のほうで見えやすいらしい。
+      優劣を「繰り返しのやりとりのパターン」と定義する Drews の立場（<a href="definition.html">優劣とは何か</a>）と、よく合う話である。
+    </li>
+    <li>
+      <b>非繁殖期の群れ</b>：カラスのような、繁殖していない個体が集まる群れの順位は、繁殖期のなわばり争いとは違う季節に、違う仕組みで保たれているかもしれない。
+      DHEA や脳の中でのステロイド合成は、その候補になる。
+      自分の紀要の総説で、今後の方向として非繁殖期の勝者・敗者効果を挙げたのも、この点が気になっていたからである。
+    </li>
+    <li>
+      <b>測るなら何を</b>：血中や糞の濃度だけでは、組織の感受性や脳の中での合成は見えない。
+      糞のテストステロン代謝物を測るときも（<a href="fecal.html">糞からホルモンを測る</a>）、それが何を表していて何を表していないかを意識しておく必要がある。
+    </li>
+  </ul>
+
+  <h2>読むならこれ</h2>
+
+  <ul>
+    <li><b>Wingfield (2017)</b>：提唱者本人による、仮説が生まれた経緯の回想。4 ページで読みやすい。</li>
+    <li><b>Wingfield et al. (2020)</b>：30 年分の検証を踏まえて、仮説をどう広げるかの提案。水準 A・B・C の整理もここ。</li>
+    <li><b>Moore et al. (2020)</b>：鳥以外の脊椎動物でのメタ分析。仮説がどこで成り立ち、どこで成り立たないかが一目でわかる。</li>
+    <li><b>Rosvall et al. (2020)</b>：雌の視点から仮説を見直した総説。優劣順位のような積み重なったやりとりの話はここ。</li>
+    <li><b>Soma et al. (2015)</b>：非繁殖期の攻撃と DHEA。季節によって仕組みが切り替わる、という見方を知るならこれ。</li>
+    <li><b>Knight et al. (2020)</b>：チャレンジ仮説から二重ホルモン仮説への流れと、その検証の現状。読み比べるなら Grebe et al. (2019) の批判も。</li>
+  </ul>
+
+  <h2>参考文献</h2>
+
+  <ul class="refs">
+    <li>Fuxjager, M. J., &amp; Schuppe, E. R. (2018). Androgenic signaling systems and their role in behavioral evolution. <i>Journal of Steroid Biochemistry and Molecular Biology</i>, 184, 47–56.</li>
+    <li>Grebe, N. M., Del Giudice, M., Emery Thompson, M., Nickels, N., Ponzi, D., Zilioli, S., Maestripieri, D., &amp; Gangestad, S. W. (2019). Testosterone, cortisol, and status-striving personality features: a review and empirical evaluation of the Dual Hormone hypothesis. <i>Hormones and Behavior</i>, 109, 25–37.</li>
+    <li>Knight, E. L., Sarkar, A., Prasad, S., &amp; Mehta, P. H. (2020). Beyond the challenge hypothesis: the emergence of the dual-hormone hypothesis and recommendations for future research. <i>Hormones and Behavior</i>, 123, 104657.</li>
+    <li>Lischinsky, J. E., &amp; Lin, D. (2020). Neural mechanisms of aggression across species. <i>Nature Neuroscience</i>, 23, 1317–1328.</li>
+    <li>Mehta, P. H., &amp; Josephs, R. A. (2010). Testosterone and cortisol jointly regulate dominance: evidence for a dual-hormone hypothesis. <i>Hormones and Behavior</i>, 58(5), 898–906.</li>
+    <li>Moore, I. T., Hernandez, J., &amp; Goymann, W. (2020). Who rises to the challenge? Testing the Challenge Hypothesis in fish, amphibians, reptiles, and mammals. <i>Hormones and Behavior</i>, 123, 104537.</li>
+    <li>Rosvall, K. A., Bentz, A. B., &amp; George, E. M. (2020). How research on female vertebrates contributes to an expanded challenge hypothesis. <i>Hormones and Behavior</i>, 123, 104565.</li>
+    <li>Soma, K. K., Rendon, N. M., Boonstra, R., Albers, H. E., &amp; Demas, G. E. (2015). DHEA effects on brain and behavior: insights from comparative studies of aggression. <i>Journal of Steroid Biochemistry and Molecular Biology</i>, 145, 261–272.</li>
+    <li>Tobari, Y., Aleksandrova, Y., Fukahori, Y., Tsutsui, K., &amp; Meddle, S. L. (2022). Gonadotropin-inhibitory hormone as a regulator of social interactions in vertebrates. <i>Frontiers in Neuroendocrinology</i>, 64, 100954.</li>
+    <li>Wingfield, J. C. (2017). The challenge hypothesis: where it began and relevance to humans. <i>Hormones and Behavior</i>, 92, 9–12.</li>
+    <li>Wingfield, J. C., Goymann, W., Jalabert, C., &amp; Soma, K. K. (2020). Reprint of “Concepts derived from the Challenge Hypothesis”. <i>Hormones and Behavior</i>, 123, 104802.</li>
+    <li>Wingfield, J. C., Hegner, R. E., Dufty, A. M., &amp; Ball, G. F. (1990). The “challenge hypothesis”: theoretical implications for patterns of testosterone secretion, mating systems, and breeding strategies. <i>American Naturalist</i>, 136(6), 829–846.</li>
+  </ul>
+
+  <hr>
+
+  <p class="small">
+    <a href="index.html">雑記帳の一覧へ</a> ｜ <a href="../ja.html">トップへ戻る</a>
+  </p>
+
+</div>
+</body>
+</html>
