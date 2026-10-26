@@ -131,6 +131,7 @@
     <li><a href="#s6">標準曲線</a></li>
     <li><a href="#s7">測った値を信じるために</a></li>
     <li><a href="#s8">緩衝液（ELISA で気をつけること）</a></li>
+    <li><a href="#experience">代替抗体を探したときのこと</a></li>
     <li><a href="#books">読むならこの本</a></li>
   </ol>
 
@@ -473,12 +474,13 @@
   </ul>
 
   <p>
-    濃度と吸光度のグラフだけを見ていると気づきにくいが、透過率で考えると、吸光度 1 の時点で検出器に届く光はもう 1 割しかない。ここまで暗くなると、検出器のノイズや、ウェルの縁をすり抜ける迷光の影響が相対的に大きくなり、測定の再現性が落ちる。
+    濃度と吸光度のグラフだけを見ていると気づきにくいが、透過率で考えると、吸光度 1 の時点で検出器に届く光は入射光の 1 割になる。吸光度が高くなるほど、検出器のノイズや迷光の影響に注意が必要だが、1 を境に測れなくなるわけではない。使う装置の測定範囲と、測定系として確認した精度で判断する。
   </p>
 
   <p>
-    ELISA は、基質を入れてから置いておくほど反応が進み、色が濃くなる。なので途中で吸光度を確かめながら、いちばん色の濃いウェル（競合法では B<sub>0</sub> 6.1 節）の吸光度が
-    1 を超えないくらいで反応を止めるようにしていた。キットによっては推奨する B<sub>0</sub> の範囲が説明書に書いてあるので、そちらも確認する。
+    発色時間は、酵素と基質、温度などによって変わる。長く待てばいつまでも色が濃くなるわけではなく、B<sub>0</sub>（抗原ゼロの最大結合ウェル）の吸光度だけで測定の良し悪しも決まらない。
+    例えば <a href="https://cdn.caymanchem.com/cdn/insert/501320.pdf">Cayman の Corticosterone ELISA Kit（501320）の説明書</a>では、Blank を差し引いた B<sub>0</sub> が 0.3〜1.5 の範囲で読むように指定されている。これは Blank 自体の値ではない。
+    このキットは AChE と Ellman 試薬を使い、405〜420 nm（通常 412 nm）で読む。HRP と TMB を使い、酸で停止して 450 nm で読む系とは、発色条件も測定波長も違う。片方の目安をそのままもう片方に使うことはできない。
   </p>
 
   <h3>5.4 吸光度と光学密度（OD）</h3>
@@ -673,6 +675,27 @@
     カラスの唾液のホルモン計測ではここまでちゃんとやっていないので悔いが残る（Aota et al., 2023) 。あとコルチだったので色々許された感じがある。
   </p>
 
+  <h3>7.5 論文に何を書くか</h3>
+
+  <p>
+    キットの説明書に書かれた性能と、自分の試料で確かめた性能は分けて書く。メーカーが示す交差反応性や感度は、その測定条件での値である。抗体を交換した系や、別の動物種の糞・唾液に、そのまま引き継げるわけではない。
+  </p>
+
+  <ul>
+    <li><b>何を使ったか</b>：キット・抗体・標識体のメーカー、品番、確認できるロット。試料の種類と前処理、希釈、単位も書く。pg/well と pg/mL、糞の湿重量と乾燥重量を混同しない。</li>
+    <li><b>どの範囲を測れたか</b>：標準曲線の範囲と、実際に定量可能と判断した範囲、その判断基準を書く。例えば Cayman のいう感度「80% B/B<sub>0</sub>」は、B<sub>0</sub> から信号が 20% 下がる濃度のことで、定量下限と同じ意味ではない。</li>
+    <li><b>どのくらいばらつくか</b>：intra-assay CV と inter-assay CV を、使った試料、反復数、測定回数とともに報告する。濃度の精度を示すなら、吸光度ではなく、検量線から換算した濃度の CV を計算する。</li>
+    <li><b>どこまで確かめたか</b>：添加回収、試料の希釈平行性、生理的変化への応答など、実施した検証と未実施の検証を区別する。メーカーの交差反応性の表だけで、試料中のすべての成分への特異性が保証されるわけではない。</li>
+  </ul>
+
+  <p>
+    inter-assay CV は、同じコントロール試料を複数の測定に入れ、各回の平均濃度のばらつきから求める。高濃度と低濃度のコントロールは別々に計算し、それぞれの CV を示すとわかりやすい。もし二つの CV の平均も示すなら、割るのは濃度水準の数である 2 であって、プレート枚数ではない。二重測定した試料同士のばらつきだけでは、日をまたいだばらつきはわからない。
+  </p>
+
+  <p>
+    ACTH 投与後に値が上がったことは、生理的変化への応答を捉えた根拠になる。ただし、絶対濃度の正確さや、別のキットとの数値の一致まで証明したことにはならない。血清での検証と糞での検証も別である。「相対的な変化として扱う」と書くだけで、試料による妨害の問題が解消するわけではない。
+  </p>
+
   <!-- ============================================================ -->
   <h2 id="s8">8. 緩衝液（ELISA で気をつけること）</h2>
 
@@ -692,7 +715,7 @@
   <h3>8.2 固相化：炭酸緩衝液</h3>
 
   <p>
-    2.2 節で書いたように、抗体をプレートに貼りつけるときは炭酸–炭酸水素緩衝液（pH 9 台）をよく使う。血液の重炭酸緩衝系（\(\mathrm{H_2CO_3 \rightleftharpoons HCO_3^- + H^+}\)、pKa ≈ 6.1）と同じ炭酸の仲間だが、使っているのは上の二段目の電離なので、アルカリ性になる。
+    2.2 節で書いたように、抗体をプレートに貼りつけるときは炭酸–炭酸水素緩衝液（pH 9 台）をよく使う。血液の重炭酸緩衝系（\(\mathrm{H_2CO_3 \rightleftharpoons HCO_3^- + H^+}\)、pKa ≈ 6.1）と同じ炭酸の仲間だが、使っているのは上の二段目の電離なので、アルカリ性になる。とはいえ他の緩衝液を使っても私の時はそこまで差がでなかった。
   </p>
 
   <h3>8.3 洗浄と希釈：PB、PBS、そして酵素との相性</h3>
@@ -724,6 +747,29 @@
   </p>
 
   <!-- ============================================================ -->
+  <h2 id="experience">9. 代替抗体を探したときのこと</h2>
+
+  <p>
+    ELISAを習った際に使用したコルチコステロンの抗体が廃盤になっていて、代わりを自分で探した。
+  </p>
+
+  <p>
+    選んだ一次抗体は Pantex の CORTICO-227P。公開されている<a href="https://8c473a6a-929d-4ac9-acdb-adb2ba0059ae.filesusr.com/ugd/d634ff_7e2372d60b1c4f2594b810106b66e417.pdf">成績書（Lot 277P、Rev. 2）</a>では、ウサギ由来のポリクローナル抗体で、免疫原は corticosterone-3-hemisuccinate-BSA とされている。品番の 227P と、この成績書のロット番号 277P は別なので、そのまま区別して記録しておく。標識体には同社の HRP-CORTICO を使った。選んだ理由としては、どちらかと言うとHRP-CORTICO目当てである。同じ会社で両方揃えられるので安心かなと思い選んだ。
+  </p>
+
+  <p>
+    成績書の交差反応性は、コルチコステロンを 100% として、デオキシコルチコステロン 1.970%、コルチゾール 0.056%、11-デオキシコルチゾール 0.061% など。これはメーカーが列挙した物質について測った値で、自分の糞試料で確かめた値ではない。表にない代謝物をどれだけ拾うかも、この資料だけではわからない。
+  </p>
+
+  <p>
+    自作の系では、最終的に B<sub>0</sub> の吸光度は約 1.0 まで上がったが、停止液を入れる前にさらに 1 時間待っても増えなかった。二次抗体との相性も疑ったが、原因を特定できたわけではない。吸光度が 1 に届かなかった、という事実だけで測定系が使えないとも、十分に検証できたとも言えない。
+  </p>
+
+  <p>
+    標準液の反復測定と測定内・測定間の CV に加えて、血清について ACTH 投与後の変化を市販キットと比較した。両方で同じようなじ間タイミングで上昇を捉えることはできた。
+  </p>
+
+  <!-- ============================================================ -->
   <h2 id="books">読むならこの本</h2>
 
   <ul>
@@ -733,12 +779,8 @@
       5 節の式の途中がわからなかったら、まずこれを読むといい。数式が苦手な実験系の学生にこそおすすめ。
     </li>
     <li>
-      <b>Wild (ed.)『The Immunoassay Handbook』（Elsevier）</b>：イムノアッセイの原理から、標識、標準曲線、精度管理まで、何でも載っている分厚い本。
-      1・2・7 節の内容を正確に知りたいときは、これを引くのが確実。
-    </li>
-    <li>
-      <b>Crowther『The ELISA Guidebook』（Humana Press）</b>：
-      ELISA に絞った実践的な本で、系の組み方や最適化の手順が具体的に書いてある。自分で系を立ち上げるならこちら。
+      <b>生物化学的測定研究会 編『<a href="https://www.kspub.co.jp/book/detail/1543850.html">免疫測定法 基礎から先端まで</a>』（講談社、2014年）</b>：
+      免疫測定法について読むなら、この本がおすすめ。測定の原理から、抗体や標識の調製、測定法の評価までまとまっている。
     </li>
     <li>
       <b>試薬・抗体メーカーの技術資料</b>：抗体の種類（3 節）、酵素と基質（4 節）、緩衝液の相性（8 節）などは、メーカーの技術ページに表でよくまとまっている。このノートの元の版も、ずいぶんお世話になった。
@@ -749,14 +791,15 @@
   <h2>参考文献</h2>
 
   <ul class="refs">
+    <li>Cayman Chemical. <i>Corticosterone ELISA Kit, Item No. 501320: Product Manual</i>. <a href="https://cdn.caymanchem.com/cdn/insert/501320.pdf">メーカー公開資料</a>（2026年10月確認）.</li>
+    <li>Pantex. <i>Certificate of Analysis: Corticosterone Rabbit Polyclonal Antibody</i>. CORTICO-227P, Lot 277P, Rev. 2. <a href="https://8c473a6a-929d-4ac9-acdb-adb2ba0059ae.filesusr.com/ugd/d634ff_7e2372d60b1c4f2594b810106b66e417.pdf">メーカー公開資料</a>.</li>
     <li>Aota, I., Yatsuda, C., &amp; Izawa, E. I. (2023). Salivary corticosterone measurement in large-billed crows by enzyme-linked immunosorbent assay. <i>Journal of Veterinary Medical Science</i>, 85(1), 71–75. <a href="https://doi.org/10.1292/jvms.22-0383">https://doi.org/10.1292/jvms.22-0383</a></li>
     <li>Ciocca, D. R., Adams, D. J., Bjercke, R. J., Sledge Jr, G. W., Edwards, D. P., Chamness, G. C., &amp; McGuire, W. L. (1983). Monoclonal antibody storage conditions, and concentration effects on immunohistochemical specificity. <i>Journal of Histochemistry &amp; Cytochemistry</i>, 31(5), 691–696.</li>
-    <li>Crowther, J. R. (2009). <i>The ELISA Guidebook</i> (2nd ed.). Humana Press.</li>
     <li>Ellman, G. L., Courtney, K. D., Andres Jr, V., &amp; Featherstone, R. M. (1961). A new and rapid colorimetric determination of acetylcholinesterase activity. <i>Biochemical Pharmacology</i>, 7(2), 88–95.</li>
     <li>Good, N. E., Winget, G. D., Winter, W., Connolly, T. N., Izawa, S., &amp; Singh, R. M. M. (1966). Hydrogen ion buffers for biological research. <i>Biochemistry</i>, 5(2), 467–477.</li>
     <li>Josephy, P. D., Eling, T., &amp; Mason, R. P. (1982). The horseradish peroxidase-catalyzed oxidation of 3,5,3',5'-tetramethylbenzidine. Free radical and charge-transfer complex intermediates. <i>Journal of Biological Chemistry</i>, 257(7), 3669–3675.</li>
     <li>奈佐原顕郎 (2019). 『ライブ講義 大学1年生のための数学入門』. 講談社.</li>
-    <li>Wild, D. (Ed.) (2013). <i>The Immunoassay Handbook</i> (4th ed.). Elsevier.</li>
+    <li>生物化学的測定研究会 編 (2014). 『<a href="https://www.kspub.co.jp/book/detail/1543850.html">免疫測定法 基礎から先端まで</a>』. 講談社.</li>
   </ul>
 
   <hr>
