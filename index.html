@@ -78,25 +78,49 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 48px;
-      padding: 10px 24px;
-      border: 2px solid #174ea6;
-      border-radius: 8px;
-      background: #eef4ff;
-      color: #174ea6;
-      font-size: 18px;
+      gap: 9px;
+      min-height: 44px;
+      padding: 7px 17px 7px 9px;
+      border: 1px solid #c56b92;
+      border-radius: 999px;
+      background: #fff6fa;
+      box-shadow: 0 3px 0 #efd2df;
+      color: #8c315d;
+      font-size: 15px;
       font-weight: bold;
       line-height: 1.5;
       text-decoration: none;
+      transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
     }
 
     .lang a:hover {
-      background: #dce9ff;
+      background: #ffeaf3;
+      box-shadow: 0 5px 0 #e8bfd1;
+      transform: translateY(-2px);
     }
 
     .lang a:focus-visible {
-      outline: 3px solid #174ea6;
+      outline: 3px solid #c56b92;
       outline-offset: 3px;
+    }
+
+    .lang-icon {
+      display: inline-flex;
+      width: 29px;
+      height: 29px;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: #c56b92;
+      color: #fff;
+      font-family: "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    .lang-sparkle {
+      color: #c56b92;
+      font-size: 13px;
     }
 
     .research {
@@ -202,7 +226,11 @@
 <div class="container">
 
   <nav class="lang" aria-label="Language">
-    <a href="ja.html" lang="ja" hreflang="ja">日本語で読む <span aria-hidden="true"> →</span></a>
+    <a href="ja.html" lang="ja" hreflang="ja">
+      <span class="lang-icon" aria-hidden="true">あ</span>
+      <span>日本語で読む</span>
+      <span class="lang-sparkle" aria-hidden="true">✦</span>
+    </a>
   </nav>
 
   <h1>Illia Aota</h1>
